@@ -130,7 +130,10 @@ class BuildTeamScreen extends StatelessWidget {
                   state: m['state']!,
                   onTap: () => Navigator.push(context,
                       MaterialPageRoute(builder: (_) =>
-                          ProfileScreen(name: m['name']!))),
+                          ProfileScreen(
+                            name: m['name']!,
+                            heroTag: 'build_team_profile_${m['name']!}',
+                          ))),
                 );
               },
             ),

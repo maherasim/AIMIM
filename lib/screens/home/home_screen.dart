@@ -55,8 +55,15 @@ class HomeScreen extends StatelessWidget {
             title: const Text('View Profile'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (_) => const ProfileScreen(name: 'A.H.A. KHAN')));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const ProfileScreen(
+                    name: 'A.H.A. KHAN',
+                    heroTag: 'home_menu_profile_avatar',
+                  ),
+                ),
+              );
             },
           ),
           ListTile(
@@ -160,9 +167,15 @@ class HomeScreen extends StatelessWidget {
                           Navigator.push(context, MaterialPageRoute(
                               builder: (_) => const MembershipFormScreen()));
                         } else {
-                          Navigator.push(context, MaterialPageRoute(
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
                               builder: (_) => ProfileScreen(
-                                  name: s['name'] as String)));
+                                name: s['name'] as String,
+                                heroTag: 'story_avatar_${s['name'] as String}',
+                              ),
+                            ),
+                          );
                         }
                       },
                     ),
@@ -209,25 +222,22 @@ class _StoryItem extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  width: 58,
-                  height: 58,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: kPrimaryGreen, width: 2.5),
-                    color: isAdd ? Colors.grey.shade200 : color,
-                  ),
-                  child: isAdd
-                      ? const Icon(Icons.add, color: kPrimaryGreen, size: 26)
-                      : Center(
-                          child: Text(
+                Hero(
+                  tag: 'story_avatar_${story['name'] as String}',
+                  child: CircleAvatar(
+                    radius: 29,
+                    backgroundColor:
+                        isAdd ? Colors.grey.shade200 : color,
+                    child: isAdd
+                        ? const Icon(Icons.add, color: kPrimaryGreen, size: 26)
+                        : Text(
                             (story['name'] as String)[0],
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22),
                           ),
-                        ),
+                  ),
                 ),
                 if (!isAdd)
                   Positioned(
@@ -283,12 +293,15 @@ class _StatusCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: kPrimaryGreen,
-                  child: Text(name[0],
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
+                Hero(
+                  tag: 'feed_avatar_$name',
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: kPrimaryGreen,
+                    child: Text(name[0],
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -315,7 +328,11 @@ class _StatusCard extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => ProfileScreen(name: name)),
+                      builder: (_) => ProfileScreen(
+                        name: name,
+                        heroTag: 'feed_avatar_$name',
+                      ),
+                    ),
                   ),
                   style: TextButton.styleFrom(
                     foregroundColor: kPrimaryGreen,

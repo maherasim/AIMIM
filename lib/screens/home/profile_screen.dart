@@ -5,7 +5,8 @@ import '../membership/membership_success_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String name;
-  const ProfileScreen({super.key, required this.name});
+  final String heroTag;
+  const ProfileScreen({super.key, required this.name, required this.heroTag});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -145,14 +146,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Stack(
                         children: [
-                          CircleAvatar(
-                            radius: 40,
-                            backgroundColor: kPrimaryGreen,
-                            child: Text(name[0],
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold)),
+                          Hero(
+                            tag: widget.heroTag,
+                            child: CircleAvatar(
+                              radius: 40,
+                              backgroundColor: kPrimaryGreen,
+                              child: Text(name[0],
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold)),
+                            ),
                           ),
                           Positioned(
                             bottom: 0,

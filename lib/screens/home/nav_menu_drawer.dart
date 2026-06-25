@@ -34,7 +34,10 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                       context,
                       MaterialPageRoute(
                           builder: (_) =>
-                              const ProfileScreen(name: 'PASHA JAMEER')),
+                              const ProfileScreen(
+                                name: 'PASHA JAMEER',
+                                heroTag: 'drawer_profile_avatar',
+                              )),
                     );
                   },
                   child: const CircleAvatar(
