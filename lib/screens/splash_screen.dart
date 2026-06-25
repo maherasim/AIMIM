@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
 import '../widgets/aimim_badge.dart';
 
@@ -8,45 +10,57 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
 
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: kPrimaryGreen,
+      backgroundColor: Color.fromRGBO(13, 83, 55, 1),
       body: Stack(
         fit: StackFit.expand,
         children: [
           // White Background Layer
-          CustomPaint(
-            painter: _WhiteBackgroundPainter(),
-          ),
+          CustomPaint(painter: _WhiteBackgroundPainter()),
 
           // 1. Top Section (India + Badge)
           SafeArea(
             child: Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 90, height: 110,
-                      child: const CustomPaint(painter: _IndiaMapPainter()),
+                      width: 90,
+                      height: 110,
+                      child: SvgPicture.asset('assets/svg/india-map.svg'),
                     ),
                     Container(
                       decoration: BoxDecoration(
                         boxShadow: [
-                          BoxShadow(color: Colors.white.withOpacity(0.6), blurRadius: 15, spreadRadius: 1)
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.2),
+                            blurRadius: 15,
+                            spreadRadius: 1,
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: const AimimBadge(),
+                      child: SvgPicture.asset(
+                        'assets/svg/Logo.svg',
+                        width: 150,
+                        height: 38,
+                      ),
                     ),
                   ],
                 ),
@@ -56,96 +70,140 @@ class SplashScreen extends StatelessWidget {
 
           // 2. Kite (Centered in top green section)
           Positioned(
-            top: size.height * 0.14,
+            top: size.height * 0.20,
             left: 0,
             right: 0,
             child: Center(
               child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(color: Colors.white.withOpacity(0.25), blurRadius: 40, spreadRadius: 5)
-                  ],
+                width: 150,
+                height: 150,
+                child: SvgPicture.asset(
+                  'assets/svg/kite.svg',
+                  fit: BoxFit.fill,
                 ),
-                width: 140, height: 140,
-                child: const CustomPaint(painter: KitePainter()),
               ),
             ),
           ),
 
           // 3. Middle White Section Content
           Positioned(
-            top: size.height * 0.44,
-            left: 24,
-            right: 24,
+            top: size.height * 0.34,
+            left: 16,
+            right: 16,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset('assets/images/logo_aimim.png', height: 80, fit: BoxFit.contain),
-                const SizedBox(height: 16),
-                const Text(
-                  'True Democracy',
-                  style: TextStyle(color: Color(0xFF111111), fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 3),
-                const Text(
-                  'Every Citizen Matters, Beyond Identity',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.w600),
-                ),
                 const SizedBox(height: 20),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 15, offset: const Offset(0, 8))
-                    ],
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pushReplacementNamed(context, '/login'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: kDarkGreen,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                      elevation: 0,
+                Column(
+                  children: [
+                    Text(
+                      'AIMIM',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.rubikMoonrocks(
+                        fontSize: 115,
+
+                        fontWeight: FontWeight.w400,
+                        color: Color.fromRGBO(13, 83, 55, 1),
+                      ),
                     ),
-                    child: const Text(
-                      'GET STARTED',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 1.5),
-                    ),
-                  ),
+                  ],
                 ),
               ],
             ),
           ),
+          Positioned(
+            top: size.height * 0.50,
+            left: 12,
+            right: 16,
+            child: Text(
+              'NATIONAL MEMBERSHIP PLATFORM',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.rubikMoonrocks(
+                fontSize: 19.5,
 
+                fontWeight: FontWeight.w400,
+                color: Color.fromRGBO(13, 83, 55, 1),
+              ),
+            ),
+          ),
+          Positioned(
+            top: size.height * 0.56,
+            left: 12,
+            right: 16,
+            child: Text(
+              'True Democracy\n Every Citizen Matters, Beyond Identity',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
+                fontSize: 20,
+
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Positioned(
+            top: size.height * 0.66,
+            left: 70,
+            right: 70,
+            child: Container(
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(13, 83, 55, 1),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 12,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  'GET STARTED',
+                  style: GoogleFonts.roboto(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
           // 4. Bottom Green Section
           Positioned(
             bottom: size.height * 0.04,
-            left: 16,
-            right: 16,
+            left: 5,
+            right: 5,
             child: Column(
               children: [
-                Text(
-                  'ALL INDIA MAJLIS-E-\nITTEHADUL MUSLIMEEN',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Courier',
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    height: 1.35,
-                    letterSpacing: 1.2,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 1.0
-                      ..color = Colors.white,
-                  ),
-                ),
+                SvgPicture.asset('assets/svg/all-india.svg'),
+                // Text(
+                //   'ALL INDIA MAJLIS-E-\nITTEHADUL MUSLIMEEN',
+                //   textAlign: TextAlign.center,
+                //   style: GoogleFonts.roboto(
+                //     // fontFamily: 'Courier',
+                //     fontSize: 32,
+                //     fontWeight: FontWeight.w900,
+                //     height: 1.35,
+                //     // color: Color.fromRGBO(13, 83, 55, 1),
+                //     letterSpacing: 1.2,
+                //     foreground: Paint()
+                //       ..style = PaintingStyle.stroke
+                //       ..strokeWidth = 1.0
+                //       ..color = Colors.white,
+                //   ),
+                // ),
                 SizedBox(height: size.height * 0.04),
-                const Text(
+                Text(
                   'Designed & Build in India',
-                  style: TextStyle(color: Colors.white70, fontSize: 13),
+                  style: GoogleFonts.roboto(
+                    color: Color.fromRGBO(255, 255, 255, 0.8),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
@@ -161,19 +219,19 @@ class _WhiteBackgroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = Colors.white;
     final path = Path();
-    
-    double topY = size.height * 0.34; 
-    double topCurveY = size.height * 0.42; 
-    
-    double bottomY = size.height * 0.74; 
-    double bottomCurveY = size.height * 0.82; 
+
+    double topY = size.height * 0.34;
+    double topCurveY = size.height * 0.42;
+
+    double bottomY = size.height * 0.70;
+    double bottomCurveY = size.height * 0.82;
 
     path.moveTo(0, topY);
     path.quadraticBezierTo(size.width / 2, topCurveY, size.width, topY);
     path.lineTo(size.width, bottomY);
     path.quadraticBezierTo(size.width / 2, bottomCurveY, 0, bottomY);
     path.close();
-    
+
     canvas.drawPath(path, paint);
   }
 
