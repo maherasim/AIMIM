@@ -1,5 +1,10 @@
+import 'package:aimim_mobile_app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../constants.dart';
 import '../../widgets/alert_banner.dart';
 import 'membership_success_screen.dart';
@@ -42,30 +47,72 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
   bool _s2Agreed = false;
 
   static const _states = [
-    'Uttar Pradesh', 'Maharashtra', 'Bihar', 'Telangana', 'Karnataka',
-    'Tamil Nadu', 'West Bengal', 'Rajasthan', 'Gujarat', 'Madhya Pradesh',
-    'Andhra Pradesh', 'Odisha', 'Jharkhand', 'Assam', 'Punjab',
+    'Uttar Pradesh',
+    'Maharashtra',
+    'Bihar',
+    'Telangana',
+    'Karnataka',
+    'Tamil Nadu',
+    'West Bengal',
+    'Rajasthan',
+    'Gujarat',
+    'Madhya Pradesh',
+    'Andhra Pradesh',
+    'Odisha',
+    'Jharkhand',
+    'Assam',
+    'Punjab',
   ];
   static const _districts = [
-    'Hyderabad', 'Lucknow', 'Mumbai', 'Patna', 'Aurangabad',
-    'Sant Kabir Nagar', 'Dhanghata', 'Gorakhpur', 'Varanasi', 'Agra',
+    'Hyderabad',
+    'Lucknow',
+    'Mumbai',
+    'Patna',
+    'Aurangabad',
+    'Sant Kabir Nagar',
+    'Dhanghata',
+    'Gorakhpur',
+    'Varanasi',
+    'Agra',
   ];
   static const _assemblies = [
-    'AC 314 Dhanghata', 'AC 001 Hyderabad Central', 'AC 045 Aurangabad East',
-    'AC 012 Lucknow Central', 'AC 078 Mumbai South', 'AC 023 Patna Sahib',
+    'AC 314 Dhanghata',
+    'AC 001 Hyderabad Central',
+    'AC 045 Aurangabad East',
+    'AC 012 Lucknow Central',
+    'AC 078 Mumbai South',
+    'AC 023 Patna Sahib',
   ];
   static const _membershipTypes = [
-    'Primary Member', 'Active Member', 'Life Member', 'Youth Wing Member',
-    'Women Wing Member', 'Student Wing Member',
+    'Primary Member',
+    'Active Member',
+    'Life Member',
+    'Youth Wing Member',
+    'Women Wing Member',
+    'Student Wing Member',
   ];
   static const _activities = [
-    'Social Work', 'Political Campaign', 'Voter Registration Drive',
-    'Community Service', 'Party Administration', 'Fundraising',
-    'Media & Communication', 'Legal Aid',
+    'Social Work',
+    'Political Campaign',
+    'Voter Registration Drive',
+    'Community Service',
+    'Party Administration',
+    'Fundraising',
+    'Media & Communication',
+    'Legal Aid',
   ];
   static const _shortPrefixes = ['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Er.'];
   static const _contactTypes = ['WhatsApp', 'Email', 'Phone', 'Telegram'];
-  static const _years = ['2006', '2005', '2004', '2000', '1995', '1990', '1985', '1980'];
+  static const _years = [
+    '2006',
+    '2005',
+    '2004',
+    '2000',
+    '1995',
+    '1990',
+    '1985',
+    '1980',
+  ];
 
   @override
   void dispose() {
@@ -84,7 +131,9 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
     if (_step < 2) {
       setState(() => _step++);
       _pageController.nextPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     }
   }
 
@@ -92,7 +141,9 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
     if (_step > 0) {
       setState(() => _step--);
       _pageController.previousPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     } else {
       Navigator.pop(context);
     }
@@ -101,22 +152,40 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: AppTheme.primaryGreen,
       appBar: AppBar(
         backgroundColor: kPrimaryGreen,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: _goBack,
+        leadingWidth: 50,
+        leading: GestureDetector(
+          onTap: _goBack,
+          child: Container(
+            padding: EdgeInsets.only(left: 20),
+            // margin: EdgeInsets.only(right: 0),
+            child: Bounceable(
+              onTap: () {},
+              child: SvgPicture.asset(
+                'assets/svg/arrow_back.svg',
+                height: 30.sp,
+              ),
+            ),
+          ),
         ),
-        title: Image.asset(
-          'assets/images/logo_round.png',
-          height: 34,
-          errorBuilder: (c, e, s) => const Text('AIMIM',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 3)),
+        //  IconButton(
+        //   icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+        //   onPressed: _goBack,
+        // ),
+        title: SvgPicture.asset(
+          'assets/svg/Logo.svg',
+          height: 50,
+          errorBuilder: (c, e, s) => const Text(
+            'AIMIM',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 3,
+            ),
+          ),
         ),
         centerTitle: false,
         actions: [
@@ -130,7 +199,7 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
       body: Column(
         children: [
           const AlertBanner(),
-          _StepIndicator(current: _step),
+          // _StepIndicator(current: _step),
           Expanded(
             child: PageView(
               controller: _pageController,
@@ -160,7 +229,8 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
                   onGenderChanged: (v) => setState(() => _gender = v),
                   onYearChanged: (v) => setState(() => _dobYear = v),
                   onContactTypeChanged: (v) => setState(() => _contactType = v),
-                  onAgreedChanged: (v) => setState(() => _s1Agreed = v ?? false),
+                  onAgreedChanged: (v) =>
+                      setState(() => _s1Agreed = v ?? false),
                   onReset: () => setState(() {
                     _s1State = null;
                     _s1District = null;
@@ -199,9 +269,11 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
                   onStateChanged: (v) => setState(() => _s2State = v),
                   onDistrictChanged: (v) => setState(() => _s2District = v),
                   onAssemblyChanged: (v) => setState(() => _s2Assembly = v),
-                  onMembershipTypeChanged: (v) => setState(() => _membershipType = v),
+                  onMembershipTypeChanged: (v) =>
+                      setState(() => _membershipType = v),
                   onActivityChanged: (v) => setState(() => _memberActivity = v),
-                  onAgreedChanged: (v) => setState(() => _s2Agreed = v ?? false),
+                  onAgreedChanged: (v) =>
+                      setState(() => _s2Agreed = v ?? false),
                   onBack: _goBack,
                   onNext: _goNext,
                   isFinalStep: false,
@@ -228,9 +300,11 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
                   onStateChanged: (v) => setState(() => _s2State = v),
                   onDistrictChanged: (v) => setState(() => _s2District = v),
                   onAssemblyChanged: (v) => setState(() => _s2Assembly = v),
-                  onMembershipTypeChanged: (v) => setState(() => _membershipType = v),
+                  onMembershipTypeChanged: (v) =>
+                      setState(() => _membershipType = v),
                   onActivityChanged: (v) => setState(() => _memberActivity = v),
-                  onAgreedChanged: (v) => setState(() => _s2Agreed = v ?? false),
+                  onAgreedChanged: (v) =>
+                      setState(() => _s2Agreed = v ?? false),
                   onBack: _goBack,
                   onNext: () => Navigator.pushReplacement(
                     context,
@@ -241,7 +315,8 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
                             : _s2NameController.text,
                         enrollmentNo: '302-123456',
                         state: _s2State ?? _s1State ?? 'Uttar Pradesh',
-                        district: _s2District ?? _s1District ?? 'Sant Kabir Nagar',
+                        district:
+                            _s2District ?? _s1District ?? 'Sant Kabir Nagar',
                         assembly: _s2Assembly ?? 'AC 314 Dhanghata',
                         membershipType: _membershipType ?? 'Primary Member',
                       ),
@@ -287,7 +362,11 @@ class _StepCircle extends StatelessWidget {
   final int n;
   final bool active;
   final bool done;
-  const _StepCircle({required this.n, required this.active, required this.done});
+  const _StepCircle({
+    required this.n,
+    required this.active,
+    required this.done,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -300,25 +379,35 @@ class _StepCircle extends StatelessWidget {
             shape: BoxShape.circle,
             color: active ? kPrimaryGreen : Colors.grey.shade200,
             border: Border.all(
-                color: active ? kPrimaryGreen : Colors.grey.shade400, width: 1.5),
+              color: active ? kPrimaryGreen : Colors.grey.shade400,
+              width: 1.5,
+            ),
           ),
           child: Center(
             child: done
                 ? const Icon(Icons.check, color: Colors.white, size: 16)
-                : Text('$n',
+                : Text(
+                    '$n',
                     style: TextStyle(
-                        color: active ? Colors.white : Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13)),
+                      color: active ? Colors.white : Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
           ),
         ),
         const SizedBox(height: 2),
         Text(
-          n == 1 ? 'Enrollment' : n == 2 ? 'Details' : 'Review',
+          n == 1
+              ? 'Enrollment'
+              : n == 2
+              ? 'Details'
+              : 'Review',
           style: TextStyle(
-              fontSize: 9,
-              color: active ? kPrimaryGreen : Colors.grey,
-              fontWeight: active ? FontWeight.w600 : FontWeight.normal),
+            fontSize: 9,
+            color: active ? kPrimaryGreen : Colors.grey,
+            fontWeight: active ? FontWeight.w600 : FontWeight.normal,
+          ),
         ),
       ],
     );
@@ -352,15 +441,22 @@ class _HelpButton extends StatelessWidget {
         color: const Color(0xFF25D366),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: const Row(
+      child: Row(
         children: [
-          Text('Help?',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12)),
+          Text(
+            'Help?',
+            style: GoogleFonts.roboto(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
           SizedBox(width: 4),
-          Icon(Icons.chat_rounded, color: Colors.white, size: 14),
+          SvgPicture.asset(
+            'assets/svg/whatsapp-1.svg',
+            color: Colors.white,
+            height: 25.sp,
+          ),
         ],
       ),
     );
@@ -371,12 +467,24 @@ class _HelpButton extends StatelessWidget {
 
 class _Step1 extends StatelessWidget {
   final List<String> states, districts, shortPrefixes, contactTypes, years;
-  final String? selectedState, selectedDistrict, shortPrefix, gender, dobYear, contactType;
-  final TextEditingController epicController, fullNameController,
-      shortNameController, mobileController, additionalContactController;
+  final String? selectedState,
+      selectedDistrict,
+      shortPrefix,
+      gender,
+      dobYear,
+      contactType;
+  final TextEditingController epicController,
+      fullNameController,
+      shortNameController,
+      mobileController,
+      additionalContactController;
   final bool agreed;
-  final ValueChanged<String?> onStateChanged, onDistrictChanged,
-      onPrefixChanged, onGenderChanged, onYearChanged, onContactTypeChanged;
+  final ValueChanged<String?> onStateChanged,
+      onDistrictChanged,
+      onPrefixChanged,
+      onGenderChanged,
+      onYearChanged,
+      onContactTypeChanged;
   final ValueChanged<bool?> onAgreedChanged;
   final VoidCallback onReset, onNext;
 
@@ -412,215 +520,282 @@ class _Step1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(14),
+      padding: EdgeInsets.only(left: 14.w, right: 14.w, bottom: 14.h, top: 8.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title
-          const Center(
-            child: Text('MEMBER APPLICATION FORM',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w900,
-                    color: kDarkGreen,
-                    letterSpacing: 0.5)),
-          ),
-          const SizedBox(height: 8),
-          Center(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-              decoration: BoxDecoration(
-                color: kPrimaryGreen,
-                borderRadius: BorderRadius.circular(20),
+          Container(
+            padding: EdgeInsets.all(20.sp),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Color.fromRGBO(26, 35, 126, 1),
+                width: 2,
               ),
-              child: const Text('Login id:  p.m.ajjukhan@gmail.com',
-                  style: TextStyle(color: Colors.white, fontSize: 12)),
+              borderRadius: BorderRadius.circular(15.r),
             ),
-          ),
-          const SizedBox(height: 16),
 
-          _FieldLabel('State Name', required: true),
-          _DropdownField(
-            hint: 'Select Your Residence State',
-            value: selectedState,
-            items: states,
-            onChanged: onStateChanged,
-          ),
-          const SizedBox(height: 10),
+            child: Column(
+              //upper
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title
+                Center(
+                  child: Text(
+                    'MEMBER APPLICATION FORM',
+                    style: GoogleFonts.rubik(
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.primaryGreen,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 3.h),
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppTheme.primaryGreen,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      'Login id:  p.m.ajjukhan@gmail.com',
+                      style: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.h),
 
-          _FieldLabel('District Name', required: true),
-          _DropdownField(
-            hint: 'Select Your Residence District',
-            value: selectedDistrict,
-            items: districts,
-            onChanged: onDistrictChanged,
-          ),
-          const SizedBox(height: 10),
-
-          _FieldLabel('EPIC · Voter Id Number', optional: true),
-          Row(
-            children: [
-              SizedBox(
-                width: 110,
-                child: _DropdownField(
-                  hint: 'Select State',
+                _FieldLabel('State Name', required: true),
+                _DropdownField(
+                  hint: 'Select Your Residence State',
                   value: selectedState,
                   items: states,
                   onChanged: onStateChanged,
                 ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _InputField(
-                  controller: epicController,
-                  hint: 'EPIC/Voter Card Number',
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
+                const SizedBox(height: 10),
 
-          // Enrollment number pill
-          Center(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              decoration: BoxDecoration(
-                color: const Color(0xFF0D2B3E),
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('ENROLLMENT NO. ',
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.w600,
-                          fontSize: 13)),
-                  Text('302-123456',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w900,
-                          fontSize: 15, letterSpacing: 1)),
-                ],
-              ),
+                _FieldLabel('District Name', required: true),
+                _DropdownField(
+                  hint: 'Select Your Residence District',
+                  value: selectedDistrict,
+                  items: districts,
+                  onChanged: onDistrictChanged,
+                ),
+                const SizedBox(height: 10),
+
+                _FieldLabel('EPIC · Voter Id Number', optional: true),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 130.w,
+                      child: _DropdownField(
+                        hint: 'Select State',
+                        value: selectedState,
+                        items: states,
+                        onChanged: onStateChanged,
+                        isFeildAttached: true,
+                        bgColor: AppTheme.primaryGreen.withValues(alpha: 0.2),
+                      ),
+                    ),
+                    // const SizedBox(width: 8),
+                    Expanded(
+                      child: _InputField(
+                        controller: epicController,
+                        isFeildAttached: true,
+                        hint: 'EPIC/Voter Card Number',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+              ],
             ),
           ),
-          const SizedBox(height: 14),
 
-          _FieldLabel('Member Full Name', required: true),
-          _InputField(
-            controller: fullNameController,
-            hint: 'Enter Full Name as per Documents',
-          ),
-          const SizedBox(height: 10),
+          // Enrollment number pill
 
-          _FieldLabelWithInfo('Member Short Name', required: true),
-          Row(
-            children: [
-              SizedBox(
-                width: 90,
-                child: _DropdownField(
-                  hint: 'Select',
-                  value: shortPrefix,
-                  items: shortPrefixes,
-                  onChanged: onPrefixChanged,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _InputField(
-                  controller: shortNameController,
-                  hint: 'Enter Short or Nick name',
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _FieldLabel('Gender', required: true),
-                    _DropdownField(
-                      hint: 'Select Gender',
-                      value: gender,
-                      items: const ['Male', 'Female', 'Other'],
-                      onChanged: onGenderChanged,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _FieldLabelWithInfo('Age', required: true,
-                        note: '(18+ Only)'),
-                    _DropdownField(
-                      hint: 'Select DOB Year',
-                      value: dobYear,
-                      items: years,
-                      onChanged: onYearChanged,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-
-          _FieldLabel('Mobile Number', optional: true),
-          Row(
+          // const SizedBox(height: 14),
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: AlignmentDirectional.center,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                padding: EdgeInsets.all(20.sp),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade300),
-                  borderRadius: BorderRadius.circular(8),
                   color: Colors.white,
+                  border: Border.all(
+                    color: Color.fromRGBO(26, 35, 126, 1),
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(15.r),
                 ),
-                child: const Text('IN  +91',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _InputField(
-                  controller: mobileController,
-                  hint: 'Enter Mobile Number',
-                  keyboardType: TextInputType.phone,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                child: Column(
+                  //lower box
+                  children: [
+                    _FieldLabel('Member Full Name', required: true),
+                    _InputField(
+                      controller: fullNameController,
+                      hint: 'Enter Full Name as per Documents',
+                    ),
+                    const SizedBox(height: 10),
+
+                    _FieldLabelWithInfo('Member Short Name', required: true),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 90,
+                          child: _DropdownField(
+                            hint: 'Select',
+                            value: shortPrefix,
+                            items: shortPrefixes,
+                            onChanged: onPrefixChanged,
+                            isFeildAttached: true,
+                            bgColor: AppTheme.primaryGreen.withValues(
+                              alpha: 0.2,
+                            ),
+                          ),
+                        ),
+                        // const SizedBox(width: 8),
+                        Expanded(
+                          child: _InputField(
+                            isFeildAttached: true,
+                            controller: shortNameController,
+                            hint: 'Enter Short or Nick name',
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _FieldLabel('Gender', required: true),
+                              _DropdownField(
+                                hint: 'Select Gender',
+                                value: gender,
+                                items: const ['Male', 'Female', 'Other'],
+                                onChanged: onGenderChanged,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _FieldLabelWithInfo(
+                                'Age',
+                                required: true,
+                                note: '(18+ Only)',
+                              ),
+                              _DropdownField(
+                                hint: 'Select DOB Year',
+                                value: dobYear,
+                                items: years,
+                                onChanged: onYearChanged,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+
+                    _FieldLabel('Mobile Number', optional: true),
+                    Row(
+                      children: [
+                        Container(
+                          height: 40.h,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            // vertical: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppTheme.primaryGreen),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.zero,
+                              bottomRight: Radius.zero,
+                              topLeft: Radius.circular(5.r),
+                              bottomLeft: Radius.circular(5.r),
+                            ),
+                            color: AppTheme.primaryGreen.withValues(alpha: 0.2),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'IN  +91',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.roboto(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        // const SizedBox(width: 8),
+                        Expanded(
+                          child: _InputField(
+                            controller: mobileController,
+                            hint: 'Enter Mobile Number',
+                            isFeildAttached: true,
+                            keyboardType: TextInputType.phone,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+
+                    _FieldLabelWithInfo('Additional Contact', optional: true),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 130.w,
+                          child: _DropdownField(
+                            isFeildAttached: true,
+                            bgColor: AppTheme.primaryGreen.withValues(
+                              alpha: 0.2,
+                            ),
+                            hint: 'Select Type',
+                            value: contactType,
+                            items: contactTypes,
+                            onChanged: onContactTypeChanged,
+                          ),
+                        ),
+                        // const SizedBox(width: 8),
+                        Expanded(
+                          child: _InputField(
+                            isFeildAttached: true,
+                            controller: additionalContactController,
+                            hint: 'Enter Mobile or Email',
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+
+                    _TermsRow(agreed: agreed, onChanged: onAgreedChanged),
+                  ],
                 ),
               ),
+              Positioned(top: -18, child: EnrollWidget()),
             ],
           ),
-          const SizedBox(height: 10),
-
-          _FieldLabelWithInfo('Additional Contact', optional: true),
-          Row(
-            children: [
-              SizedBox(
-                width: 120,
-                child: _DropdownField(
-                  hint: 'Select Type',
-                  value: contactType,
-                  items: contactTypes,
-                  onChanged: onContactTypeChanged,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _InputField(
-                  controller: additionalContactController,
-                  hint: 'Enter Mobile or Email',
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-
-          _TermsRow(agreed: agreed, onChanged: onAgreedChanged),
           const SizedBox(height: 16),
 
           Row(
@@ -632,11 +807,14 @@ class _Step1 extends StatelessWidget {
                     foregroundColor: Colors.black87,
                     side: const BorderSide(color: Colors.black26),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  child: const Text('RESET',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'RESET',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
@@ -649,11 +827,14 @@ class _Step1 extends StatelessWidget {
                     foregroundColor: Colors.white,
                     disabledBackgroundColor: Colors.grey.shade300,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  child: const Text('NEXT & PREVIEW',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'NEXT & PREVIEW',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ],
@@ -665,18 +846,71 @@ class _Step1 extends StatelessWidget {
   }
 }
 
+class EnrollWidget extends StatelessWidget {
+  const EnrollWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(color: Color.fromRGBO(26, 35, 126, 1), width: 2),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'ENROLLMENT NO. ',
+              style: GoogleFonts.roboto(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+            Text(
+              '302-123456',
+              style: TextStyle(
+                color: Color.fromRGBO(26, 35, 126, 1),
+                fontWeight: FontWeight.w900,
+                fontSize: 14,
+                letterSpacing: 1,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // ── Step 2 / Step 3 (shared layout, different bottom button) ────────────────
 
 class _Step2 extends StatelessWidget {
-  final List<String> states, districts, assemblies, membershipTypes,
-      activities, years;
+  final List<String> states,
+      districts,
+      assemblies,
+      membershipTypes,
+      activities,
+      years;
   final TextEditingController nameController, contactController;
-  final String? gender, dobYear, selectedState, selectedDistrict,
-      selectedAssembly, membershipType, memberActivity;
+  final String? gender,
+      dobYear,
+      selectedState,
+      selectedDistrict,
+      selectedAssembly,
+      membershipType,
+      memberActivity;
   final bool agreed;
   final bool isFinalStep;
-  final ValueChanged<String?> onGenderChanged, onYearChanged, onStateChanged,
-      onDistrictChanged, onAssemblyChanged, onMembershipTypeChanged,
+  final ValueChanged<String?> onGenderChanged,
+      onYearChanged,
+      onStateChanged,
+      onDistrictChanged,
+      onAssemblyChanged,
+      onMembershipTypeChanged,
       onActivityChanged;
   final ValueChanged<bool?> onAgreedChanged;
   final VoidCallback onBack, onNext;
@@ -728,14 +962,18 @@ class _Step2 extends StatelessWidget {
             // Card header
             Row(
               children: [
-                const Text('AIMIM Member Enrollment: ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 13)),
-                Text('302-123456',
-                    style: const TextStyle(
-                        color: kPrimaryGreen,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 14)),
+                const Text(
+                  'AIMIM Member Enrollment: ',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                ),
+                Text(
+                  '302-123456',
+                  style: const TextStyle(
+                    color: kPrimaryGreen,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 14,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 2),
@@ -857,11 +1095,14 @@ class _Step2 extends StatelessWidget {
                       foregroundColor: Colors.black87,
                       side: const BorderSide(color: Colors.black26),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
-                    child: const Text('BACK',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: const Text(
+                      'BACK',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -874,7 +1115,8 @@ class _Step2 extends StatelessWidget {
                       foregroundColor: Colors.white,
                       disabledBackgroundColor: Colors.grey.shade300,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
                     child: Text(
@@ -899,8 +1141,7 @@ class _FieldLabel extends StatelessWidget {
   final String text;
   final bool required;
   final bool optional;
-  const _FieldLabel(this.text,
-      {this.required = false, this.optional = false});
+  const _FieldLabel(this.text, {this.required = false, this.optional = false});
 
   @override
   Widget build(BuildContext context) {
@@ -908,20 +1149,28 @@ class _FieldLabel extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Row(
         children: [
-          Text(text,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                  color: kDarkGreen)),
+          Text(
+            text,
+            style: GoogleFonts.roboto(
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+              color: AppTheme.primaryGreen,
+            ),
+          ),
           if (required)
-            const Text(' *',
-                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+            const Text(
+              ' *',
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            ),
           if (optional)
-            const Text('  (OPTIONAL)',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 10,
-                    fontWeight: FontWeight.normal)),
+            const Text(
+              '  (OPTIONAL)',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 10,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
         ],
       ),
     );
@@ -933,8 +1182,12 @@ class _FieldLabelWithInfo extends StatelessWidget {
   final bool required;
   final bool optional;
   final String? note;
-  const _FieldLabelWithInfo(this.text,
-      {this.required = false, this.optional = false, this.note});
+  const _FieldLabelWithInfo(
+    this.text, {
+    this.required = false,
+    this.optional = false,
+    this.note,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -942,23 +1195,33 @@ class _FieldLabelWithInfo extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Row(
         children: [
-          Text(text,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                  color: kDarkGreen)),
+          Text(
+            text,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+              color: kDarkGreen,
+            ),
+          ),
           if (required)
-            const Text(' *',
-                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+            const Text(
+              ' *',
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            ),
           if (optional)
-            const Text('  (OPTIONAL)',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 10,
-                    fontWeight: FontWeight.normal)),
+            const Text(
+              '  (OPTIONAL)',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 10,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
           if (note != null)
-            Text('  $note',
-                style: const TextStyle(color: Colors.grey, fontSize: 10)),
+            Text(
+              '  $note',
+              style: const TextStyle(color: Colors.grey, fontSize: 10),
+            ),
           const SizedBox(width: 4),
           const Icon(Icons.info_outline, size: 13, color: Colors.grey),
         ],
@@ -971,11 +1234,15 @@ class _DropdownField extends StatelessWidget {
   final String hint;
   final String? value;
   final List<String> items;
+  final Color bgColor;
+  final bool isFeildAttached;
   final ValueChanged<String?> onChanged;
   const _DropdownField({
     required this.hint,
     required this.value,
     required this.items,
+    this.bgColor = Colors.white,
+    this.isFeildAttached = false,
     required this.onChanged,
   });
 
@@ -984,24 +1251,49 @@ class _DropdownField extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
+        color: bgColor,
+        border: Border(
+          top: BorderSide(color: AppTheme.primaryGreen, width: 1),
+          left: BorderSide(color: AppTheme.primaryGreen, width: 1),
+          bottom: BorderSide(color: AppTheme.primaryGreen, width: 1),
+          right: isFeildAttached
+              ? BorderSide.none
+              : BorderSide(color: AppTheme.primaryGreen, width: 1),
+          // Omit 'bottom' to leave it borderless
+        ),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(5.r),
+          topRight: isFeildAttached ? Radius.zero : Radius.circular(5.r),
+          bottomLeft: Radius.circular(5.r),
+          bottomRight: isFeildAttached ? Radius.zero : Radius.circular(5.r),
+        ),
       ),
+      height: 40.h,
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
+          padding: EdgeInsets.zero,
           value: value,
-          hint: Text(hint,
-              style: const TextStyle(color: Colors.grey, fontSize: 13)),
+          hint: Text(
+            hint,
+            style: GoogleFonts.roboto(
+              color: Color.fromRGBO(13, 83, 55, 0.5),
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           isExpanded: true,
-          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+          icon: Icon(Icons.keyboard_arrow_down, color: AppTheme.primaryGreen),
           items: items
-              .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(e,
-                        style: const TextStyle(fontSize: 13),
-                        overflow: TextOverflow.ellipsis),
-                  ))
+              .map(
+                (e) => DropdownMenuItem(
+                  value: e,
+                  child: Text(
+                    e,
+                    style: const TextStyle(fontSize: 13),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              )
               .toList(),
           onChanged: onChanged,
         ),
@@ -1015,38 +1307,63 @@ class _InputField extends StatelessWidget {
   final String hint;
   final TextInputType keyboardType;
   final List<TextInputFormatter> inputFormatters;
+  final bool isFeildAttached;
   const _InputField({
     required this.controller,
     required this.hint,
     this.keyboardType = TextInputType.text,
     this.inputFormatters = const [],
+    this.isFeildAttached = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      keyboardType: keyboardType,
-      inputFormatters: inputFormatters,
-      style: const TextStyle(fontSize: 13),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Colors.grey.shade300),
+    return Container(
+      height: 40.h,
+      child: TextField(
+        controller: controller,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
+        style: const TextStyle(fontSize: 13),
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: GoogleFonts.roboto(
+            color: Color.fromRGBO(13, 83, 55, 0.5),
+            fontSize: 14.sp,
+            fontWeight: FontWeight.bold,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: AppTheme.primaryGreen),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(8.r),
+              bottomRight: Radius.circular(8.r),
+              topLeft: isFeildAttached ? Radius.zero : Radius.circular(8.r),
+              bottomLeft: isFeildAttached ? Radius.zero : Radius.circular(8.r),
+            ),
+            borderSide: BorderSide(color: AppTheme.primaryGreen),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(8.r),
+              bottomRight: Radius.circular(8.r),
+              topLeft: isFeildAttached ? Radius.zero : Radius.circular(8.r),
+              bottomLeft: isFeildAttached ? Radius.zero : Radius.circular(8.r),
+            ),
+            borderSide: const BorderSide(
+              color: AppTheme.primaryGreen,
+              width: 1.5,
+            ),
+          ),
+          filled: true,
+          fillColor: Colors.white,
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Colors.grey.shade300),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: kPrimaryGreen, width: 1.5),
-        ),
-        filled: true,
-        fillColor: Colors.white,
       ),
     );
   }
@@ -1072,24 +1389,25 @@ class _TermsRow extends StatelessWidget {
         const SizedBox(width: 4),
         RichText(
           text: TextSpan(
-            style: const TextStyle(
-                fontSize: 12, color: Colors.black87),
+            style: const TextStyle(fontSize: 12, color: Colors.black87),
             children: [
               const TextSpan(text: 'I AGREE '),
               TextSpan(
                 text: 'TERMS',
                 style: const TextStyle(
-                    color: kPrimaryGreen,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline),
+                  color: kPrimaryGreen,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                ),
               ),
               const TextSpan(text: ' & '),
               TextSpan(
                 text: 'CONDITIONS.',
                 style: const TextStyle(
-                    color: kPrimaryGreen,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline),
+                  color: kPrimaryGreen,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ],
           ),

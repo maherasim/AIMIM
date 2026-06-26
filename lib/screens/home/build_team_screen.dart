@@ -28,11 +28,14 @@ class BuildTeamScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Build Your Team',
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16)),
+        title: const Text(
+          'Build Your Team',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
         actions: [
           CircleAvatar(
             radius: 16,
@@ -50,11 +53,14 @@ class BuildTeamScreen extends StatelessWidget {
             ),
             child: const Row(
               children: [
-                Text('Help?',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12)),
+                Text(
+                  'Help?',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
                 SizedBox(width: 4),
                 Icon(Icons.chat_rounded, color: Colors.white, size: 14),
               ],
@@ -92,7 +98,8 @@ class BuildTeamScreen extends StatelessWidget {
                     onAction: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const MembershipFormScreen()),
+                        builder: (_) => const MembershipFormScreen(),
+                      ),
                     ),
                     isAdd: true,
                   ),
@@ -109,7 +116,9 @@ class BuildTeamScreen extends StatelessWidget {
                 Text(
                   'My Team Member List (${_members.length + 479})',
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 13),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
                 ),
               ],
             ),
@@ -128,12 +137,15 @@ class BuildTeamScreen extends StatelessWidget {
                   ac: m['ac']!,
                   district: m['district']!,
                   state: m['state']!,
-                  onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) =>
-                          ProfileScreen(
-                            name: m['name']!,
-                            heroTag: 'build_team_profile_${m['name']!}',
-                          ))),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProfileScreen(
+                        name: m['name']!,
+                        heroTag: 'build_team_profile_${m['name']!}',
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
@@ -147,8 +159,10 @@ class BuildTeamScreen extends StatelessWidget {
         ),
         backgroundColor: kPrimaryGreen,
         icon: const Icon(Icons.person_add, color: Colors.white),
-        label: const Text('Add Member',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        label: const Text(
+          'Add Member',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
@@ -186,11 +200,14 @@ class _StatCard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(title,
-                    style: const TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: kDarkGreen)),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: kDarkGreen,
+                  ),
+                ),
               ),
               const Icon(Icons.info_outline, size: 13, color: Colors.grey),
             ],
@@ -199,11 +216,14 @@ class _StatCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('$count',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 26,
-                      color: kDarkGreen)),
+              Text(
+                '$count',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 26,
+                  color: kDarkGreen,
+                ),
+              ),
               const SizedBox(width: 4),
               const Icon(Icons.group_outlined, color: Colors.grey, size: 18),
               const Spacer(),
@@ -211,7 +231,9 @@ class _StatCard extends StatelessWidget {
                 onTap: onAction,
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isAdd ? 12 : 8, vertical: 6),
+                    horizontal: isAdd ? 12 : 8,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: kPrimaryGreen,
                     borderRadius: BorderRadius.circular(8),
@@ -220,22 +242,31 @@ class _StatCard extends StatelessWidget {
                       ? Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            Icon(Icons.person_add_outlined,
-                                color: Colors.white, size: 14),
+                            Icon(
+                              Icons.person_add_outlined,
+                              color: Colors.white,
+                              size: 14,
+                            ),
                             SizedBox(width: 4),
-                            Text('ADD',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold)),
+                            Text(
+                              'ADD',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         )
-                      : Text(actionLabel,
+                      : Text(
+                          actionLabel,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold)),
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
             ],
@@ -277,11 +308,14 @@ class _MemberRow extends StatelessWidget {
           children: [
             SizedBox(
               width: 24,
-              child: Text('$number',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: kDarkGreen)),
+              child: Text(
+                '$number',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: kDarkGreen,
+                ),
+              ),
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -290,25 +324,30 @@ class _MemberRow extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(name,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12,
-                              color: kDarkGreen)),
-                      const Text(' · ',
-                          style: TextStyle(color: Colors.grey)),
-                      Text(id,
-                          style: const TextStyle(
-                              fontSize: 12,
-                              color: kDarkGreen,
-                              fontWeight: FontWeight.w600)),
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                          color: kDarkGreen,
+                        ),
+                      ),
+                      const Text(' · ', style: TextStyle(color: Colors.grey)),
+                      Text(
+                        id,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: kDarkGreen,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 2),
-                  Text('$ac · $district · $state',
-                      style: const TextStyle(
-                          fontSize: 10,
-                          color: Colors.grey)),
+                  Text(
+                    '$ac · $district · $state',
+                    style: const TextStyle(fontSize: 10, color: Colors.grey),
+                  ),
                 ],
               ),
             ),

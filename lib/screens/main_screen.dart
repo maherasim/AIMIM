@@ -6,7 +6,6 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../constants.dart';
 import 'home/home_screen.dart';
 import 'reels/reels_screen.dart';
 import 'kite/kite_screen.dart';
@@ -168,7 +167,8 @@ class _MainScreenState extends State<MainScreen> {
     return Bounceable(
       duration: const Duration(milliseconds: 300),
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
         padding: EdgeInsets.all(15.sp),
         decoration: BoxDecoration(
           color: isActive ? AppTheme.white : Colors.white.withOpacity(0.1),

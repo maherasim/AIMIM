@@ -1,4 +1,8 @@
+import 'package:aimim_mobile_app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../constants.dart';
 import '../../widgets/alert_banner.dart';
 
@@ -17,8 +21,17 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
     {'me': false, 'text': 'This is the main chat template', 'time': '9:41 AM'},
     {'me': false, 'text': 'Hmmm', 'time': '9:42 AM'},
     {'me': false, 'text': 'I think I get it', 'time': '9:42 AM'},
-    {'me': false, 'text': 'Will head to the Help Center if I have more questions tho', 'time': '9:43 AM'},
-    {'me': true, 'text': 'You just edit any text to type in the conversation you want to show, and delete any bubbles you don\'t want to use', 'time': '9:44 AM'},
+    {
+      'me': false,
+      'text': 'Will head to the Help Center if I have more questions tho',
+      'time': '9:43 AM',
+    },
+    {
+      'me': true,
+      'text':
+          'You just edit any text to type in the conversation you want to show, and delete any bubbles you don\'t want to use',
+      'time': '9:44 AM',
+    },
     {'me': true, 'text': 'Boom!', 'time': '9:44 AM'},
     {'me': false, 'text': 'Oh?', 'time': '9:45 AM'},
     {'me': false, 'text': 'Cool', 'time': '9:45 AM'},
@@ -34,11 +47,11 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: AppTheme.primaryGreen,
       appBar: AppBar(
         backgroundColor: kPrimaryGreen,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_outlined, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         title: Row(
@@ -46,9 +59,13 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
             CircleAvatar(
               radius: 16,
               backgroundColor: Colors.white24,
-              child: Text(widget.name[0],
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold)),
+              child: Text(
+                widget.name[0],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -57,19 +74,22 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
                 children: [
                   Row(
                     children: [
-                      Text(widget.name,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600)),
+                      Text(
+                        widget.name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       const SizedBox(width: 4),
-                      const Icon(Icons.verified,
-                          color: Colors.white70, size: 13),
+                      const Icon(Icons.verified, color: Colors.blue, size: 13),
                     ],
                   ),
-                  const Text('Online',
-                      style:
-                          TextStyle(color: Colors.white70, fontSize: 10)),
+                  const Text(
+                    'Online',
+                    style: TextStyle(color: Colors.white70, fontSize: 10),
+                  ),
                 ],
               ),
             ),
@@ -77,14 +97,16 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
         ),
         actions: [
           IconButton(
-              icon: const Icon(Icons.call_outlined, color: Colors.white),
-              onPressed: () {}),
+            icon: const Icon(Icons.call_outlined, color: Colors.white),
+            onPressed: () {},
+          ),
+          SizedBox(width: 10.w),
+          SvgPicture.asset('assets/svg/whatsapp-1.svg', height: 25.sp),
+          SizedBox(width: 10.w),
           IconButton(
-              icon: const Icon(Icons.videocam_outlined, color: Colors.white),
-              onPressed: () {}),
-          IconButton(
-              icon: const Icon(Icons.more_vert, color: Colors.white),
-              onPressed: () {}),
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+            onPressed: () {},
+          ),
         ],
       ),
       body: Column(
@@ -99,9 +121,10 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
                   return const Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 8),
-                      child: Text('Nov 30, 2025, 9:41 AM',
-                          style:
-                              TextStyle(color: Colors.grey, fontSize: 11)),
+                      child: Text(
+                        'Nov 30, 2025, 9:41 AM',
+                        style: TextStyle(color: Colors.grey, fontSize: 11),
+                      ),
                     ),
                   );
                 }
@@ -116,13 +139,13 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
           ),
           // Input bar
           Container(
-            color: Colors.white,
+            margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.r),
+            ),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Row(
               children: [
-                const Icon(Icons.emoji_emotions_outlined,
-                    color: Colors.grey, size: 22),
-                const SizedBox(width: 8),
                 Expanded(
                   child: TextField(
                     controller: _msgController,
@@ -134,9 +157,26 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
                         borderSide: BorderSide.none,
                       ),
                       filled: true,
-                      fillColor: Colors.grey.shade100,
+                      // prefix: Row(
+                      //   children: [
+                      //     Icon(Icons.gif, color: Colors.white),
+                      //     Divider(thickness: 5),
+                      //   ],
+                      // ),
+                      prefixIcon: Icon(
+                        Icons.gif_box_outlined,
+                        color: Colors.white,
+                      ),
+                      suffixIcon: Icon(Icons.attachment, color: Colors.green),
+                      fillColor: Color.fromRGBO(30, 41, 59, 1),
                       contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        // borderSide: BorderSide(color: Colors.white, width: 1),
+                      ),
                     ),
                   ),
                 ),
@@ -145,10 +185,10 @@ class _ChatSingleScreenState extends State<ChatSingleScreen> {
                   width: 40,
                   height: 40,
                   decoration: const BoxDecoration(
-                    color: kPrimaryGreen,
+                    color: Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.mic, color: Colors.white, size: 20),
+                  child: const Icon(Icons.mic, color: Colors.black, size: 20),
                 ),
               ],
             ),
@@ -163,46 +203,58 @@ class _ChatBubble extends StatelessWidget {
   final String text;
   final bool isMe;
   final String time;
-  const _ChatBubble(
-      {required this.text, required this.isMe, required this.time});
+  const _ChatBubble({
+    required this.text,
+    required this.isMe,
+    required this.time,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 6),
+        margin: const EdgeInsets.only(bottom: 4),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.72),
+          maxWidth: MediaQuery.of(context).size.width * 0.72,
+        ),
         decoration: BoxDecoration(
-          color: isMe ? kPrimaryGreen : Colors.white,
+          color: isMe ? Colors.black : Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(16),
-            topRight: const Radius.circular(16),
-            bottomLeft: Radius.circular(isMe ? 16 : 4),
             bottomRight: Radius.circular(isMe ? 4 : 16),
+            bottomLeft: const Radius.circular(16),
+            topRight: Radius.circular(16),
+            topLeft: Radius.circular(isMe ? 16 : 4),
           ),
           boxShadow: [
             BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: const Offset(0, 1)),
+              color: Colors.black12,
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(text,
-                style: TextStyle(
-                    color: isMe ? Colors.white : Colors.black87,
-                    fontSize: 13,
-                    height: 1.4)),
+            Text(
+              text,
+              style: GoogleFonts.roboto(
+                // fontWeight: FontWeight.bold,
+                color: isMe ? Colors.white : Colors.black87,
+                fontSize: 13,
+                height: 1.4,
+              ),
+            ),
             const SizedBox(height: 2),
-            Text(time,
-                style: TextStyle(
-                    color: isMe ? Colors.white60 : Colors.grey,
-                    fontSize: 10)),
+            Text(
+              time,
+              style: TextStyle(
+                color: isMe ? Colors.white60 : Colors.grey,
+                fontSize: 10,
+              ),
+            ),
           ],
         ),
       ),

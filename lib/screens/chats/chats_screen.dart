@@ -232,7 +232,7 @@ class _ChatsScreenState extends State<ChatsScreen>
         ],
 
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(56.0),
+          preferredSize: const Size.fromHeight(45.0),
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
 

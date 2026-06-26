@@ -1,4 +1,8 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:aimim_mobile_app/theme/app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../constants.dart';
 import '../../widgets/alert_banner.dart';
 import 'profile_screen.dart';
@@ -19,300 +23,131 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: AppTheme.primaryGreen,
+      width: 300.w,
       child: Column(
         children: [
           // â”€â”€ User profile header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
           Container(
-            color: kPrimaryGreen,
-            padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
+            margin: EdgeInsets.only(top: 45.w),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) =>
-                              const ProfileScreen(
-                                name: 'PASHA JAMEER',
-                                heroTag: 'drawer_profile_avatar',
-                              )),
-                    );
-                  },
-                  child: const CircleAvatar(
-                    radius: 28,
-                    backgroundColor: Colors.white24,
-                    child: Text('P',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: const [
-                          Text('PASHA JAMEER',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
-                          SizedBox(width: 4),
-                          Icon(Icons.verified, color: Colors.white70, size: 14),
-                        ],
-                      ),
-                      const Text('@PashaJaam',
-                          style:
-                              TextStyle(color: Colors.white70, fontSize: 12)),
-                      const SizedBox(height: 2),
-                      const Text('New User Â· Joined May 2025',
-                          style:
-                              TextStyle(color: Colors.white54, fontSize: 10)),
-                      const Text('Last login 26 November 2025',
-                          style:
-                              TextStyle(color: Colors.white54, fontSize: 10)),
-                    ],
-                  ),
-                ),
+                SvgPicture.asset('assets/svg/Logo.svg', height: 70.sp),
                 IconButton(
-                  icon: const Icon(Icons.chevron_right, color: Colors.white),
                   onPressed: () {},
+                  icon: Icon(
+                    Icons.cancel_outlined,
+                    size: 40.sp,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
           ),
-
+          SizedBox(height: 15.h),
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: AlignmentGeometry.center,
+            children: [
+              Container(
+                width: 300.w,
+                height: 2.h,
+                decoration: BoxDecoration(color: Colors.white),
+              ),
+              Positioned(
+                top: -13.h,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 3.h,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 2),
+                    borderRadius: BorderRadius.circular(20.r),
+                    color: AppTheme.primaryGreen,
+                  ),
+                  child: Text(
+                    'NATIONAL MEMBERSHIP PLATFORM',
+                    style: GoogleFonts.rubikMoonrocks(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20.h),
           Expanded(
-            child: ListView(
-              padding: EdgeInsets.zero,
+            child: Column(
               children: [
-                const AlertBanner(),
-
-                // Location row
                 Container(
-                  color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.location_on_outlined,
-                          color: kPrimaryGreen, size: 18),
-                      const SizedBox(width: 8),
-                      const Expanded(
-                        child: Text(
-                          '580 Lucknow, Uttar Pradesh, 272165',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
-                      OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: kPrimaryGreen,
-                          side: const BorderSide(color: kPrimaryGreen),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 4),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)),
-                          minimumSize: Size.zero,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        child: const Text('Update',
-                            style: TextStyle(fontSize: 11)),
-                      ),
-                    ],
+                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.h),
+                  // padding: EdgeInsets.all(5.sp),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 1.5),
+                    borderRadius: BorderRadius.circular(15.r),
+                    color: Colors.white,
                   ),
-                ),
-                const Divider(height: 1),
-
-                // Account Preferences
-                ExpansionTile(
-                  leading: const Icon(Icons.manage_accounts_outlined,
-                      color: kPrimaryGreen, size: 20),
-                  title: const Text('Account Preferences',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 13)),
-                  initiallyExpanded: _prefsExpanded,
-                  onExpansionChanged: (v) =>
-                      setState(() => _prefsExpanded = v),
-                  children: [
-                    _PrefRow(
-                        label: 'Current Residence',
-                        value: 'Mumbai, Maharashtra'),
-                    _PrefRow(
-                        label: 'Voting Location',
-                        value: 'Noida, Uttar Pradesh'),
-                  ],
-                ),
-                const Divider(height: 1),
-
-                _DrawerItem(
-                  icon: Icons.contacts_outlined,
-                  title: 'My Contacts',
-                  trailing: '1200',
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (_) => const ChatsScreen()));
-                  },
-                ),
-                _DrawerItem(
-                  icon: Icons.support_agent_outlined,
-                  title: 'Support Center',
-                  onTap: () {
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text('Support Center'),
-                        content: const Text(
-                            'For help, contact us on WhatsApp:\n+91 40 2457 7788\n\nOr email: support@aimim.app'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('OK',
-                                style: TextStyle(color: kPrimaryGreen)),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                _DrawerItem(
-                  icon: Icons.settings_outlined,
-                  title: 'Advanced Settings',
-                  onTap: () {
-                    Navigator.pop(context);
-                    showModalBottomSheet(
-                      context: context,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(16))),
-                      builder: (_) => SafeArea(
-                        child: Column(mainAxisSize: MainAxisSize.min,
-                            children: [
-                          ListTile(
-                              leading: const Icon(Icons.notifications_outlined),
-                              title: const Text('Notification Settings'),
-                              onTap: () => Navigator.pop(context)),
-                          ListTile(
-                              leading: const Icon(Icons.lock_outline),
-                              title: const Text('Privacy & Security'),
-                              onTap: () => Navigator.pop(context)),
-                          ListTile(
-                              leading: const Icon(Icons.language_outlined),
-                              title: const Text('Language'),
-                              onTap: () => Navigator.pop(context)),
-                          ListTile(
-                              leading: const Icon(Icons.logout,
-                                  color: Colors.red),
-                              title: const Text('Logout',
-                                  style: TextStyle(color: Colors.red)),
-                              onTap: () {
-                                Navigator.pop(context);
-                                Navigator.of(context)
-                                    .pushNamedAndRemoveUntil(
-                                        '/login', (_) => false);
-                              }),
-                        ]),
-                      ),
-                    );
-                  },
-                ),
-                _DrawerItem(
-                  icon: Icons.emoji_events_outlined,
-                  title: 'Awards & Medals',
-                  onTap: () { Navigator.pop(context); Navigator.push(context, MaterialPageRoute(builder: (_) => const AwardsScreen())); },
-                ),
-                _DrawerItem(
-                  icon: Icons.public_outlined,
-                  title: 'Web Mode',
-                  onTap: () { Navigator.pop(context); Navigator.push(context, MaterialPageRoute(builder: (_) => const WebModeScreen())); },
-                ),
-
-                const SizedBox(height: 12),
-
-                // WhatsApp chat
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 8),
-                  child: ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.chat_rounded,
-                        color: Colors.white, size: 20),
-                    label: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Chat with Us',
-                            style: TextStyle(
-                                color: Colors.white70, fontSize: 10)),
-                        Text('WhatsApp',
-                            style: TextStyle(
-                                color: Colors.white,
+                  child: Column(
+                    children: [
+                      buildUserinfo(),
+                      // SizedBox(height: 5.h),
+                      buildAlert(),
+                      SizedBox(height: 5.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.red,
+                              size: 20.sp,
+                            ),
+                            Text(
+                              '580 Lucknow, Uttar Pradesh, 272165',
+                              style: GoogleFonts.roboto(
+                                color: Colors.red,
+                                fontSize: 9.sp,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14)),
-                      ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF25D366),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
-                      alignment: Alignment.centerLeft,
-                    ),
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: Center(
-                    child: Text('Managed by: Third Party',
-                        style: TextStyle(
-                            color: Colors.grey.shade500, fontSize: 10)),
-                  ),
-                ),
-
-                // Social icons
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _SocialIcon(Icons.alternate_email, Colors.black),
-                      _SocialIcon(Icons.facebook, const Color(0xFF1877F2)),
-                      _SocialIcon(Icons.play_arrow, Colors.red),
-                      _SocialIcon(Icons.camera_alt_outlined,
-                          const Color(0xFFE1306C)),
-                      _SocialIcon(Icons.send, const Color(0xFF0088CC)),
-                      _SocialIcon(Icons.chat, const Color(0xFF25D366)),
-                    ],
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: const Text('Privacy Policy',
-                            style: TextStyle(
-                                color: kPrimaryGreen, fontSize: 11)),
-                      ),
-                      const Text(' Â· ',
-                          style:
-                              TextStyle(color: Colors.grey, fontSize: 11)),
-                      GestureDetector(
-                        onTap: () {},
-                        child: const Text('Terms of Service',
-                            style: TextStyle(
-                                color: kPrimaryGreen, fontSize: 11)),
+                              ),
+                            ),
+                            Container(
+                              width: 80.w,
+                              // height: 40.h,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 5.w,
+                                vertical: 3.h,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.refresh,
+                                    color: Colors.white,
+                                    size: 20.w,
+                                  ),
+                                  SizedBox(width: 5.w),
+                                  Text(
+                                    'Update',
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -321,6 +156,117 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Container buildAlert() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20.r),
+          bottomRight: Radius.circular(20.r),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(230, 131, 64, 1),
+              borderRadius: BorderRadius.circular(30.r),
+            ),
+            child: Text(
+              'Alert',
+              style: GoogleFonts.roboto(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12.sp,
+              ),
+            ),
+          ),
+          SizedBox(width: 5.w),
+          Text(
+            'Beware of fraud, AIMIM never ask OTP, \nPasscode, or any kind of payments ETC.',
+            style: GoogleFonts.roboto(
+              fontSize: 11.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildUserinfo() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(13, 83, 55, 1),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15.r),
+          topRight: Radius.circular(15.r),
+        ),
+      ),
+      child: Container(
+        margin: EdgeInsets.all(5.sp),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30.r),
+        ),
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 60.h,
+              width: 60.w,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/user.jpg'),
+                  fit: BoxFit.cover,
+                ),
+                shape: BoxShape.circle,
+              ),
+            ),
+            SizedBox(width: 5.w),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'PASHA JAMEER',
+                      style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    SizedBox(width: 5.w),
+                    Icon(Icons.verified, color: Colors.blue, size: 20.sp),
+                  ],
+                ),
+                Text(
+                  'New User • Joined May 2025 >',
+                  style: GoogleFonts.roboto(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11.sp,
+                  ),
+                ),
+                Text(
+                  'Last login 26 November 2025',
+                  style: GoogleFonts.roboto(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11.sp,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(width: 18.w),
+            Icon(Icons.arrow_forward_ios, color: Colors.black, size: 20.sp),
+          ],
+        ),
       ),
     );
   }
@@ -341,13 +287,15 @@ class _PrefRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label,
-                    style: const TextStyle(
-                        color: kPrimaryGreen,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600)),
-                Text(value,
-                    style: const TextStyle(fontSize: 12)),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: kPrimaryGreen,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(value, style: const TextStyle(fontSize: 12)),
               ],
             ),
           ),
@@ -356,10 +304,10 @@ class _PrefRow extends StatelessWidget {
             style: OutlinedButton.styleFrom(
               foregroundColor: kPrimaryGreen,
               side: const BorderSide(color: kPrimaryGreen),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
+                borderRadius: BorderRadius.circular(12),
+              ),
               minimumSize: Size.zero,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
@@ -376,25 +324,32 @@ class _DrawerItem extends StatelessWidget {
   final String title;
   final String? trailing;
   final VoidCallback onTap;
-  const _DrawerItem(
-      {required this.icon,
-      required this.title,
-      this.trailing,
-      required this.onTap});
+  const _DrawerItem({
+    required this.icon,
+    required this.title,
+    this.trailing,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: kPrimaryGreen, size: 20),
-      title: Text(title,
-          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+      ),
       trailing: trailing != null
           ? Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(trailing!,
-                    style: const TextStyle(
-                        color: kPrimaryGreen, fontWeight: FontWeight.bold)),
+                Text(
+                  trailing!,
+                  style: const TextStyle(
+                    color: kPrimaryGreen,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const Icon(Icons.chevron_right, color: Colors.grey),
               ],
             )
@@ -423,4 +378,3 @@ class _SocialIcon extends StatelessWidget {
     );
   }
 }
-

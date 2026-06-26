@@ -12,33 +12,56 @@ class HomeScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (_) => SafeArea(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const SizedBox(height: 8),
-          Container(width: 40, height: 4,
-              decoration: BoxDecoration(color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(2))),
-          const SizedBox(height: 12),
-          const Text('Notifications',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          const Divider(),
-          ...[
-            ('New member joined your team', Icons.person_add, '2m ago'),
-            ('AIMIM announced a new event', Icons.campaign_outlined, '1h ago'),
-            ('Your membership was verified', Icons.verified, '3h ago'),
-            ('Daily check-in reminder', Icons.check_circle_outline, 'Yesterday'),
-          ].map((n) => ListTile(
-            leading: CircleAvatar(
-              backgroundColor: kPrimaryGreen.withAlpha(25),
-              child: Icon(n.$2, color: kPrimaryGreen, size: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 8),
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(2),
+              ),
             ),
-            title: Text(n.$1, style: const TextStyle(fontSize: 13)),
-            trailing: Text(n.$3,
-                style: const TextStyle(color: Colors.grey, fontSize: 11)),
-          )),
-          const SizedBox(height: 8),
-        ]),
+            const SizedBox(height: 12),
+            const Text(
+              'Notifications',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            const Divider(),
+            ...[
+              ('New member joined your team', Icons.person_add, '2m ago'),
+              (
+                'AIMIM announced a new event',
+                Icons.campaign_outlined,
+                '1h ago',
+              ),
+              ('Your membership was verified', Icons.verified, '3h ago'),
+              (
+                'Daily check-in reminder',
+                Icons.check_circle_outline,
+                'Yesterday',
+              ),
+            ].map(
+              (n) => ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: kPrimaryGreen.withAlpha(25),
+                  child: Icon(n.$2, color: kPrimaryGreen, size: 20),
+                ),
+                title: Text(n.$1, style: const TextStyle(fontSize: 13)),
+                trailing: Text(
+                  n.$3,
+                  style: const TextStyle(color: Colors.grey, fontSize: 11),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
       ),
     );
   }
@@ -47,40 +70,48 @@ class HomeScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (_) => SafeArea(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(
-            leading: const Icon(Icons.person_outline),
-            title: const Text('View Profile'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const ProfileScreen(
-                    name: 'A.H.A. KHAN',
-                    heroTag: 'home_menu_profile_avatar',
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.person_outline),
+              title: const Text('View Profile'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ProfileScreen(
+                      name: 'A.H.A. KHAN',
+                      heroTag: 'home_menu_profile_avatar',
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.group_outlined),
-            title: const Text('Build Your Team'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (_) => const MembershipFormScreen()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.close),
-            title: const Text('Cancel'),
-            onTap: () => Navigator.pop(context),
-          ),
-        ]),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.group_outlined),
+              title: const Text('Build Your Team'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const MembershipFormScreen(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.close),
+              title: const Text('Cancel'),
+              onTap: () => Navigator.pop(context),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -132,8 +163,10 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add_circle_outline, color: Colors.white),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const MembershipFormScreen())),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const MembershipFormScreen()),
+            ),
           ),
           IconButton(
             icon: const Icon(Icons.notifications_outlined, color: Colors.white),
@@ -158,27 +191,30 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 itemCount: _stories.length,
-                itemBuilder: (context, i) =>
-                    _StoryItem(
-                      story: _stories[i],
-                      onTap: () {
-                        final s = _stories[i];
-                        if (s['isAdd'] == true) {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (_) => const MembershipFormScreen()));
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ProfileScreen(
-                                name: s['name'] as String,
-                                heroTag: 'story_avatar_${s['name'] as String}',
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                itemBuilder: (context, i) => _StoryItem(
+                  story: _stories[i],
+                  onTap: () {
+                    final s = _stories[i];
+                    if (s['isAdd'] == true) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MembershipFormScreen(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ProfileScreen(
+                            name: s['name'] as String,
+                            heroTag: 'story_avatar_${s['name'] as String}',
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ),
           ),
@@ -193,7 +229,10 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MembershipFormScreen())),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const MembershipFormScreen()),
+        ),
         backgroundColor: kPrimaryGreen,
         child: const Icon(Icons.add, color: Colors.white),
       ),
@@ -226,16 +265,16 @@ class _StoryItem extends StatelessWidget {
                   tag: 'story_avatar_${story['name'] as String}',
                   child: CircleAvatar(
                     radius: 29,
-                    backgroundColor:
-                        isAdd ? Colors.grey.shade200 : color,
+                    backgroundColor: isAdd ? Colors.grey.shade200 : color,
                     child: isAdd
                         ? const Icon(Icons.add, color: kPrimaryGreen, size: 26)
                         : Text(
                             (story['name'] as String)[0],
                             style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
                           ),
                   ),
                 ),
@@ -275,8 +314,12 @@ class _StatusCard extends StatelessWidget {
   const _StatusCard({required this.index});
 
   static const _users = [
-    'A.H.A. KHAN', 'Imtiaz Jaleel', 'Pasha Jameer',
-    'Asaduddin Owais', 'Dr. Shoaib', 'Shaukat Ali',
+    'A.H.A. KHAN',
+    'Imtiaz Jaleel',
+    'Pasha Jameer',
+    'Asaduddin Owais',
+    'Dr. Shoaib',
+    'Shaukat Ali',
   ];
 
   @override
@@ -298,9 +341,13 @@ class _StatusCard extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: kPrimaryGreen,
-                    child: Text(name[0],
-                        style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      name[0],
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -310,17 +357,28 @@ class _StatusCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(name,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 13)),
+                          Text(
+                            name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
                           const SizedBox(width: 4),
-                          const Icon(Icons.verified,
-                              color: kPrimaryGreen, size: 14),
+                          const Icon(
+                            Icons.verified,
+                            color: kPrimaryGreen,
+                            size: 14,
+                          ),
                         ],
                       ),
-                      Text('${index + 1}h ago',
-                          style: const TextStyle(
-                              color: Colors.grey, fontSize: 11)),
+                      Text(
+                        '${index + 1}h ago',
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 11,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -337,13 +395,15 @@ class _StatusCard extends StatelessWidget {
                   style: TextButton.styleFrom(
                     foregroundColor: kPrimaryGreen,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 4),
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
                     side: const BorderSide(color: kPrimaryGreen),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                  child: const Text('Follow',
-                      style: TextStyle(fontSize: 12)),
+                  child: const Text('Follow', style: TextStyle(fontSize: 12)),
                 ),
               ],
             ),
@@ -360,8 +420,7 @@ class _StatusCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Center(
-                child: Icon(Icons.image_outlined,
-                    color: Colors.grey, size: 48),
+                child: Icon(Icons.image_outlined, color: Colors.grey, size: 48),
               ),
             ),
             const SizedBox(height: 10),
@@ -394,12 +453,12 @@ class _ActionBtn extends StatelessWidget {
         children: [
           Icon(icon, size: 18, color: Colors.grey.shade600),
           const SizedBox(width: 4),
-          Text(label,
-              style:
-                  TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+          Text(
+            label,
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
         ],
       ),
     );
   }
 }
-

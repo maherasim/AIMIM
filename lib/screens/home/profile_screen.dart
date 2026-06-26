@@ -20,47 +20,88 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (_) => SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Container(width: 40, height: 4,
-                decoration: BoxDecoration(color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(2))),
-            const SizedBox(height: 14),
-            const Text('Share Profile',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            const SizedBox(height: 16),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildShareOpt(context, Icons.chat_rounded, 'WhatsApp', const Color(0xFF25D366)),
-              _buildShareOpt(context, Icons.send, 'Telegram', const Color(0xFF0088CC)),
-              _buildShareOpt(context, Icons.facebook, 'Facebook', const Color(0xFF1877F2)),
-              _buildShareOpt(context, Icons.link, 'Copy Link', Colors.grey),
-            ]),
-            const SizedBox(height: 8),
-          ]),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 14),
+              const Text(
+                'Share Profile',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildShareOpt(
+                    context,
+                    Icons.chat_rounded,
+                    'WhatsApp',
+                    const Color(0xFF25D366),
+                  ),
+                  _buildShareOpt(
+                    context,
+                    Icons.send,
+                    'Telegram',
+                    const Color(0xFF0088CC),
+                  ),
+                  _buildShareOpt(
+                    context,
+                    Icons.facebook,
+                    'Facebook',
+                    const Color(0xFF1877F2),
+                  ),
+                  _buildShareOpt(context, Icons.link, 'Copy Link', Colors.grey),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildShareOpt(BuildContext ctx, IconData icon, String label, Color color) {
+  Widget _buildShareOpt(
+    BuildContext ctx,
+    IconData icon,
+    String label,
+    Color color,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.pop(ctx);
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Sharing via $label...')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Sharing via $label...')));
       },
-      child: Column(children: [
-        Container(
-          width: 52, height: 52,
-          decoration: BoxDecoration(color: color.withAlpha(25), shape: BoxShape.circle),
-          child: Icon(icon, color: color, size: 26),
-        ),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 11)),
-      ]),
+      child: Column(
+        children: [
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: color.withAlpha(25),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: color, size: 26),
+          ),
+          const SizedBox(height: 4),
+          Text(label, style: const TextStyle(fontSize: 11)),
+        ],
+      ),
     );
   }
 
@@ -69,20 +110,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (_) => SafeArea(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(leading: const Icon(Icons.block), title: const Text('Block'),
-              onTap: () { Navigator.pop(context);
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.block),
+              title: const Text('Block'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('User blocked')));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.report_outlined),
+              title: const Text('Report'),
+              onTap: () {
+                Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('User blocked'))); }),
-          ListTile(leading: const Icon(Icons.report_outlined), title: const Text('Report'),
-              onTap: () { Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Report submitted'))); }),
-          ListTile(leading: const Icon(Icons.close), title: const Text('Cancel'),
-              onTap: () => Navigator.pop(context)),
-        ]),
+                  const SnackBar(content: Text('Report submitted')),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.close),
+              title: const Text('Cancel'),
+              onTap: () => Navigator.pop(context),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -92,22 +152,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (_) => SafeArea(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(leading: const Icon(Icons.notifications_outlined),
-              title: const Text('Notifications'), onTap: () => Navigator.pop(context)),
-          ListTile(leading: const Icon(Icons.lock_outline),
-              title: const Text('Privacy'), onTap: () => Navigator.pop(context)),
-          ListTile(leading: const Icon(Icons.language_outlined),
-              title: const Text('Language'), onTap: () => Navigator.pop(context)),
-          ListTile(leading: const Icon(Icons.logout, color: Colors.red),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.notifications_outlined),
+              title: const Text('Notifications'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.lock_outline),
+              title: const Text('Privacy'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.language_outlined),
+              title: const Text('Language'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text('Logout', style: TextStyle(color: Colors.red)),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamedAndRemoveUntil('/login', (_) => false);
-              }),
-        ]),
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil('/login', (_) => false);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -123,15 +200,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text('@${name.toLowerCase().replaceAll(' ', '_')}',
-            style: const TextStyle(color: Colors.white, fontSize: 14)),
+        title: Text(
+          '@${name.toLowerCase().replaceAll(' ', '_')}',
+          style: const TextStyle(color: Colors.white, fontSize: 14),
+        ),
         actions: [
           IconButton(
-              icon: const Icon(Icons.ios_share_outlined, color: Colors.white),
-              onPressed: () => _showShare(context)),
+            icon: const Icon(Icons.ios_share_outlined, color: Colors.white),
+            onPressed: () => _showShare(context),
+          ),
           IconButton(
-              icon: const Icon(Icons.more_vert, color: Colors.white),
-              onPressed: () => _showMore(context)),
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+            onPressed: () => _showMore(context),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -151,11 +232,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: CircleAvatar(
                               radius: 40,
                               backgroundColor: kPrimaryGreen,
-                              child: Text(name[0],
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold)),
+                              child: Text(
+                                name[0],
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                           Positioned(
@@ -167,11 +251,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               decoration: BoxDecoration(
                                 color: kPrimaryGreen,
                                 shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: Colors.white, width: 2),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
                               ),
-                              child: const Icon(Icons.notifications,
-                                  color: Colors.white, size: 12),
+                              child: const Icon(
+                                Icons.notifications,
+                                color: Colors.white,
+                                size: 12,
+                              ),
                             ),
                           ),
                         ],
@@ -183,25 +272,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             Row(
                               children: [
-                                Text(name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16)),
+                                Text(
+                                  name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
                                 const SizedBox(width: 4),
-                                const Icon(Icons.verified,
-                                    color: kPrimaryGreen, size: 16),
-                                const Icon(Icons.verified,
-                                    color: Colors.blue, size: 16),
+                                const Icon(
+                                  Icons.verified,
+                                  color: kPrimaryGreen,
+                                  size: 16,
+                                ),
+                                const Icon(
+                                  Icons.verified,
+                                  color: Colors.blue,
+                                  size: 16,
+                                ),
                               ],
                             ),
                             const SizedBox(height: 2),
-                            Text(name.toUpperCase(),
-                                style: const TextStyle(
-                                    fontSize: 11, color: Colors.grey)),
+                            Text(
+                              name.toUpperCase(),
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey,
+                              ),
+                            ),
                             const SizedBox(height: 2),
-                            const Text('Member ID: 786786786',
-                                style: TextStyle(
-                                    fontSize: 11, color: Colors.grey)),
+                            const Text(
+                              'Member ID: 786786786',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -216,14 +322,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     children: [
                       const CircleAvatar(
-                          radius: 10,
-                          backgroundColor: Colors.grey,
-                          child: Text('J',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 8))),
+                        radius: 10,
+                        backgroundColor: Colors.grey,
+                        child: Text(
+                          'J',
+                          style: TextStyle(color: Colors.white, fontSize: 8),
+                        ),
+                      ),
                       const SizedBox(width: 4),
-                      const Text('Followed by juliantara.uix, juliantara',
-                          style: TextStyle(fontSize: 11, color: Colors.grey)),
+                      const Text(
+                        'Followed by juliantara.uix, juliantara',
+                        style: TextStyle(fontSize: 11, color: Colors.grey),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -234,8 +344,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       _SocialChip(Icons.alternate_email, Colors.black),
                       _SocialChip(Icons.chat_rounded, Color(0xFF25D366)),
                       _SocialChip(Icons.send, Color(0xFF0088CC)),
-                      _SocialChip(Icons.camera_alt_outlined,
-                          Color(0xFFE1306C)),
+                      _SocialChip(Icons.camera_alt_outlined, Color(0xFFE1306C)),
                       _SocialChip(Icons.facebook, Color(0xFF1877F2)),
                       _SocialChip(Icons.g_mobiledata_rounded, Colors.red),
                     ],
@@ -251,8 +360,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       decoration: BoxDecoration(
                         color: _following ? Colors.white : kPrimaryGreen,
                         border: Border.all(
-                            color: _following ? Colors.grey.shade400 : kPrimaryGreen,
-                            width: 1.5),
+                          color: _following
+                              ? Colors.grey.shade400
+                              : kPrimaryGreen,
+                          width: 1.5,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -272,7 +384,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               _following ? 'Following' : 'Follow',
                               key: ValueKey(_following),
                               style: TextStyle(
-                                color: _following ? kPrimaryGreen : Colors.white,
+                                color: _following
+                                    ? kPrimaryGreen
+                                    : Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -289,27 +403,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     children: [
                       Expanded(
-                          child: _ProfileBtn('Member Card', Icons.badge_outlined,
-                              () => Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) =>
-                                      MembershipSuccessScreen(
-                                        name: name,
-                                        enrollmentNo: 'MEM-786786',
-                                        state: 'Maharashtra',
-                                        district: 'Mumbai',
-                                        assembly: 'Aurangabad',
-                                        membershipType: 'Active',
-                                      ))))),
+                        child: _ProfileBtn(
+                          'Member Card',
+                          Icons.badge_outlined,
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => MembershipSuccessScreen(
+                                name: name,
+                                enrollmentNo: 'MEM-786786',
+                                state: 'Maharashtra',
+                                district: 'Mumbai',
+                                assembly: 'Aurangabad',
+                                membershipType: 'Active',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
-                          child: _ProfileBtn('Message', Icons.message_outlined,
-                              () => Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) =>
-                                      ChatSingleScreen(name: name))))),
+                        child: _ProfileBtn(
+                          'Message',
+                          Icons.message_outlined,
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ChatSingleScreen(name: name),
+                            ),
+                          ),
+                        ),
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
-                          child: _ProfileBtn('Settings', Icons.settings_outlined,
-                              () => _showSettings(context))),
+                        child: _ProfileBtn(
+                          'Settings',
+                          Icons.settings_outlined,
+                          () => _showSettings(context),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -329,12 +461,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       CircleAvatar(
                         radius: 24,
-                        backgroundColor:
-                            kPrimaryGreen.withAlpha(40 + i * 20),
-                        child: Text(String.fromCharCode(65 + i),
-                            style: const TextStyle(
-                                color: kPrimaryGreen,
-                                fontWeight: FontWeight.bold)),
+                        backgroundColor: kPrimaryGreen.withAlpha(40 + i * 20),
+                        child: Text(
+                          String.fromCharCode(65 + i),
+                          style: const TextStyle(
+                            color: kPrimaryGreen,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -393,8 +527,7 @@ class _PostGrid extends StatelessWidget {
       itemCount: 9,
       itemBuilder: (context, i) => Container(
         color: Colors.grey.shade200,
-        child: const Icon(Icons.image_outlined,
-            color: Colors.grey, size: 32),
+        child: const Icon(Icons.image_outlined, color: Colors.grey, size: 32),
       ),
     );
   }

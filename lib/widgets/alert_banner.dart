@@ -17,7 +17,7 @@ class _AlertBannerState extends State<AlertBanner> {
   Widget build(BuildContext context) {
     if (!_visible) return const SizedBox.shrink();
     return Container(
-      margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
+      margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.r),
         color: Color.fromRGBO(41, 42, 46, 0.5),
