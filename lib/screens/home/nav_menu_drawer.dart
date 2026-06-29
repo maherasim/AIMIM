@@ -3,12 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../constants.dart';
-import '../../widgets/alert_banner.dart';
-import 'profile_screen.dart';
-import '../awards/awards_screen.dart';
-import '../chats/chats_screen.dart';
-import '../webmode/web_mode_screen.dart';
 
 class NavMenuDrawer extends StatefulWidget {
   const NavMenuDrawer({super.key});
@@ -18,8 +12,6 @@ class NavMenuDrawer extends StatefulWidget {
 }
 
 class _NavMenuDrawerState extends State<NavMenuDrawer> {
-  bool _prefsExpanded = true;
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -35,7 +27,9 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
               children: [
                 SvgPicture.asset('assets/svg/Logo.svg', height: 70.sp),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   icon: Icon(
                     Icons.cancel_outlined,
                     size: 40.sp,
@@ -98,7 +92,10 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                       buildAlert(),
                       SizedBox(height: 5.h),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5.w,
+                          vertical: 10.h,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -149,10 +146,143 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                           ],
                         ),
                       ),
+                      Divider(color: AppTheme.primaryGreen),
+                      buildDrawerTile(
+                        title: 'Account Preferences',
+                        icon: 'assets/svg/user-round.svg',
+                        isExpanded: true,
+                      ),
+                      buildDrawerTile(
+                        title: 'My Contacts (1200)',
+                        icon: 'assets/svg/contact.svg',
+                      ),
+
+                      buildDrawerTile(
+                        title: 'Support Center',
+                        icon: 'assets/svg/support.svg',
+                      ),
+                      buildDrawerTile(
+                        title: 'Advanced Setting',
+                        icon: 'assets/svg/advance-settings.svg',
+                        isAdvanceSetting: true,
+                      ),
                     ],
                   ),
                 ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 30.w,
+                    vertical: 10.h,
+                  ),
+                  child: Image.asset('assets/images/cat-whatsaopop.png'),
+                ),
+                Text(
+                  'Managed by: Third Party',
+                  style: GoogleFonts.roboto(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                Spacer(),
+                Image.asset('assets/images/ooter-1.png'),
+                SizedBox(height: 90.h),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildDrawerTile({
+    required String title,
+    required String icon,
+    bool isExpanded = false,
+    bool isAdvanceSetting = false,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: isAdvanceSetting ? Colors.black : Colors.transparent,
+        border: Border(bottom: BorderSide(color: AppTheme.primaryGreen)),
+        borderRadius: isAdvanceSetting
+            ? BorderRadius.only(
+                bottomLeft: Radius.circular(15.r),
+                bottomRight: Radius.circular(15.r),
+              )
+            : BorderRadius.circular(0),
+      ),
+      child: ExpansionTile(
+        leading: SvgPicture.asset(
+          icon,
+          color: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
+        ),
+        visualDensity: VisualDensity.compact,
+        initiallyExpanded: isExpanded,
+
+        iconColor: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
+        title: Text(
+          title,
+          style: GoogleFonts.roboto(
+            color: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
+            fontWeight: FontWeight.bold,
+            fontSize: 16.sp,
+          ),
+        ),
+        expandedCrossAxisAlignment: .start,
+        expandedAlignment: .bottomLeft,
+        childrenPadding: EdgeInsets.symmetric(horizontal: 15.w),
+        children: [
+          buildDataColumn(
+            title: 'Current Residency: ',
+            value: 'Mumbai, Maharashtra',
+          ),
+          buildDataColumn(
+            title: 'Voting Location: ',
+            value: 'Noida, Uttar Pradesh',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildDataColumn({required String title, required String value}) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.h),
+      child: Column(
+        crossAxisAlignment: .start,
+        children: [
+          Row(
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.roboto(
+                  color: Colors.red,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                margin: EdgeInsets.only(left: 2.w),
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Text(
+                  'Edit',
+                  style: GoogleFonts.roboto(color: Colors.red, fontSize: 10.sp),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 3.h),
+          Text(
+            value,
+            style: GoogleFonts.roboto(
+              color: AppTheme.primaryGreen,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -268,113 +398,6 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _PrefRow extends StatelessWidget {
-  final String label;
-  final String value;
-  const _PrefRow({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(56, 4, 16, 8),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: const TextStyle(
-                    color: kPrimaryGreen,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(value, style: const TextStyle(fontSize: 12)),
-              ],
-            ),
-          ),
-          OutlinedButton(
-            onPressed: () {},
-            style: OutlinedButton.styleFrom(
-              foregroundColor: kPrimaryGreen,
-              side: const BorderSide(color: kPrimaryGreen),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              minimumSize: Size.zero,
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text('Edit', style: TextStyle(fontSize: 11)),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DrawerItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String? trailing;
-  final VoidCallback onTap;
-  const _DrawerItem({
-    required this.icon,
-    required this.title,
-    this.trailing,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon, color: kPrimaryGreen, size: 20),
-      title: Text(
-        title,
-        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-      ),
-      trailing: trailing != null
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  trailing!,
-                  style: const TextStyle(
-                    color: kPrimaryGreen,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Icon(Icons.chevron_right, color: Colors.grey),
-              ],
-            )
-          : const Icon(Icons.chevron_right, color: Colors.grey),
-      onTap: onTap,
-      dense: true,
-    );
-  }
-}
-
-class _SocialIcon extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  const _SocialIcon(this.icon, this.color);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 36,
-      height: 36,
-      decoration: BoxDecoration(
-        color: color.withAlpha(25),
-        shape: BoxShape.circle,
-      ),
-      child: Icon(icon, color: color, size: 18),
     );
   }
 }

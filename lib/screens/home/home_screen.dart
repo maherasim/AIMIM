@@ -7,8 +7,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +32,13 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.transparent,
           drawer: NavMenuDrawer(),
           appBar: AppBar(
             leading: GestureDetector(
               onTap: () {
-                Scaffold.of(context).openDrawer();
+                _scaffoldKey.currentState?.openDrawer();
               },
               child: Padding(
                 padding: EdgeInsets.only(left: 10.w),
