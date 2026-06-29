@@ -138,15 +138,14 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
   }
 
   void _goBack() {
-    if (_step > 0) {
-      setState(() => _step--);
-      _pageController.previousPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    } else {
-      Navigator.pop(context);
-    }
+    // if (_step > 0) {
+    //   setState(() => _step--);
+    //   _pageController.previousPage(
+    //     duration: const Duration(milliseconds: 300),
+    //     curve: Curves.easeInOut,
+    //   );
+    // } else {
+    Navigator.pop(context);
   }
 
   @override
@@ -157,18 +156,12 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
         backgroundColor: kPrimaryGreen,
         elevation: 0,
         leadingWidth: 50,
-        leading: GestureDetector(
-          onTap: _goBack,
-          child: Container(
-            padding: EdgeInsets.only(left: 20),
-            // margin: EdgeInsets.only(right: 0),
-            child: Bounceable(
-              onTap: () {},
-              child: SvgPicture.asset(
-                'assets/svg/arrow_back.svg',
-                height: 30.sp,
-              ),
-            ),
+        leading: Container(
+          padding: EdgeInsets.only(left: 20),
+          // margin: EdgeInsets.only(right: 0),
+          child: Bounceable(
+            onTap: _goBack,
+            child: SvgPicture.asset('assets/svg/arrow_back.svg', height: 30.sp),
           ),
         ),
         //  IconButton(
