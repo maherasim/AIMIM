@@ -45,31 +45,31 @@ class _LoginScreenState extends State<LoginScreen> {
             Expanded(
               flex: 11,
               child: Container(
-                margin: const EdgeInsets.only(top: 50),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                margin: EdgeInsets.only(top: 50.h),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Column(
                   children: [
                     HeaderRow(),
-                    SizedBox(height: 15),
+                    SizedBox(height: 15.h),
                     Stack(
                       children: [
                         Text(
                           'AIMIM',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.rubikMoonrocks(
-                            fontSize: 112,
+                            fontSize: 112.sp,
 
                             fontWeight: FontWeight.w400,
                             color: Colors.white,
                           ),
                         ),
                         Positioned(
-                          bottom: 3,
+                          bottom: 3.h,
                           left: 0,
                           child: Text(
                             'All India Majlis-E-Ittehadul Muslimeen',
                             style: GoogleFonts.roboto(
-                              fontSize: 20.5,
+                              fontSize: 20.5.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 5.h),
                     Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: 15.w,
@@ -266,25 +266,29 @@ class HeaderRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SvgPicture.asset('assets/svg/india-map.svg', width: 100, height: 100),
+        SvgPicture.asset(
+          'assets/svg/india-map.svg',
+          width: 100.w,
+          height: 100.h,
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SvgPicture.asset('assets/svg/Logo.svg', width: 100, height: 38),
-            const SizedBox(height: 10),
+            SvgPicture.asset('assets/svg/Logo.svg', width: 100.w, height: 38.h),
+            SizedBox(height: 10.h),
             Container(
-              margin: const EdgeInsets.only(right: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              margin: EdgeInsets.only(right: 10.w),
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: Colors.white, width: 1),
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(30.r),
               ),
               child: Text(
                 'SKIP',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),

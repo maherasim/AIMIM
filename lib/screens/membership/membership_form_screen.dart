@@ -177,7 +177,7 @@ class _MembershipFormScreenState extends State<MembershipFormScreen> {
         // ),
         title: SvgPicture.asset(
           'assets/svg/Logo.svg',
-          height: 50,
+          height: 50.h,
           errorBuilder: (c, e, s) => const Text(
             'AIMIM',
             style: TextStyle(
@@ -343,7 +343,7 @@ class _StepIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -373,30 +373,30 @@ class _StepCircle extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 30,
-          height: 30,
+          width: 30.w,
+          height: 30.h,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: active ? kPrimaryGreen : Colors.grey.shade200,
             border: Border.all(
               color: active ? kPrimaryGreen : Colors.grey.shade400,
-              width: 1.5,
+              width: 1.5.w,
             ),
           ),
           child: Center(
             child: done
-                ? const Icon(Icons.check, color: Colors.white, size: 16)
+                ? Icon(Icons.check, color: Colors.white, size: 16.sp)
                 : Text(
                     '$n',
                     style: TextStyle(
                       color: active ? Colors.white : Colors.grey,
                       fontWeight: FontWeight.bold,
-                      fontSize: 13,
+                      fontSize: 13.sp,
                     ),
                   ),
           ),
         ),
-        const SizedBox(height: 2),
+        SizedBox(height: 2.h),
         Text(
           n == 1
               ? 'Enrollment'
@@ -404,7 +404,7 @@ class _StepCircle extends StatelessWidget {
               ? 'Details'
               : 'Review',
           style: TextStyle(
-            fontSize: 9,
+            fontSize: 9.sp,
             color: active ? kPrimaryGreen : Colors.grey,
             fontWeight: active ? FontWeight.w600 : FontWeight.normal,
           ),
@@ -421,9 +421,9 @@ class _StepLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 60,
-      height: 2,
-      margin: const EdgeInsets.only(bottom: 14),
+      width: 60.w,
+      height: 2.h,
+      margin: EdgeInsets.only(bottom: 14.h),
       color: active ? kPrimaryGreen : Colors.grey.shade300,
     );
   }
@@ -435,11 +435,11 @@ class _HelpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 4.w),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
         color: const Color(0xFF25D366),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
         children: [
@@ -448,10 +448,10 @@ class _HelpButton extends StatelessWidget {
             style: GoogleFonts.roboto(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: 14.sp,
             ),
           ),
-          SizedBox(width: 4),
+          SizedBox(width: 4.w),
           SvgPicture.asset(
             'assets/svg/whatsapp-1.svg',
             color: Colors.white,
@@ -560,7 +560,7 @@ class _Step1 extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: AppTheme.primaryGreen,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
                       'Login id:  p.m.ajjukhan@gmail.com',
@@ -581,7 +581,7 @@ class _Step1 extends StatelessWidget {
                   items: states,
                   onChanged: onStateChanged,
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
 
                 _FieldLabel('District Name', required: true),
                 _DropdownField(
@@ -590,7 +590,7 @@ class _Step1 extends StatelessWidget {
                   items: districts,
                   onChanged: onDistrictChanged,
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
 
                 _FieldLabel('EPIC · Voter Id Number', optional: true),
                 Row(
@@ -606,7 +606,7 @@ class _Step1 extends StatelessWidget {
                         bgColor: AppTheme.primaryGreen.withValues(alpha: 0.2),
                       ),
                     ),
-                    // const SizedBox(width: 8),
+                    // SizedBox(width: 8.w),
                     Expanded(
                       child: _InputField(
                         controller: epicController,
@@ -616,14 +616,14 @@ class _Step1 extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
               ],
             ),
           ),
 
           // Enrollment number pill
 
-          // const SizedBox(height: 14),
+          // SizedBox(height: 14.h),
           Stack(
             clipBehavior: Clip.none,
             alignment: AlignmentDirectional.center,
@@ -646,7 +646,7 @@ class _Step1 extends StatelessWidget {
                       controller: fullNameController,
                       hint: 'Enter Full Name as per Documents',
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
                     _FieldLabelWithInfo('Member Short Name', required: true),
                     Row(
@@ -664,7 +664,7 @@ class _Step1 extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // const SizedBox(width: 8),
+                        // SizedBox(width: 8.w),
                         Expanded(
                           child: _InputField(
                             isFeildAttached: true,
@@ -674,7 +674,7 @@ class _Step1 extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
                     Row(
                       children: [
@@ -692,7 +692,7 @@ class _Step1 extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -713,7 +713,7 @@ class _Step1 extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
                     _FieldLabel('Mobile Number', optional: true),
                     Row(
@@ -745,7 +745,7 @@ class _Step1 extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // const SizedBox(width: 8),
+                        // SizedBox(width: 8.w),
                         Expanded(
                           child: _InputField(
                             controller: mobileController,
@@ -759,7 +759,7 @@ class _Step1 extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
                     _FieldLabelWithInfo('Additional Contact', optional: true),
                     Row(
@@ -777,7 +777,7 @@ class _Step1 extends StatelessWidget {
                             onChanged: onContactTypeChanged,
                           ),
                         ),
-                        // const SizedBox(width: 8),
+                        // SizedBox(width: 8.w),
                         Expanded(
                           child: _InputField(
                             isFeildAttached: true,
@@ -787,7 +787,7 @@ class _Step1 extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 14),
+                    SizedBox(height: 14.h),
 
                     _TermsRow(agreed: agreed, onChanged: onAgreedChanged),
                   ],
@@ -796,7 +796,7 @@ class _Step1 extends StatelessWidget {
               Positioned(top: -18, child: EnrollWidget()),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           Row(
             children: [
@@ -807,9 +807,9 @@ class _Step1 extends StatelessWidget {
                     foregroundColor: Colors.black87,
                     side: const BorderSide(color: Colors.black26),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
                   ),
                   child: const Text(
                     'RESET',
@@ -817,7 +817,7 @@ class _Step1 extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
               Expanded(
                 flex: 2,
                 child: ElevatedButton(
@@ -827,9 +827,9 @@ class _Step1 extends StatelessWidget {
                     foregroundColor: Colors.white,
                     disabledBackgroundColor: Colors.grey.shade300,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
                   ),
                   child: const Text(
                     'NEXT & PREVIEW',
@@ -839,7 +839,7 @@ class _Step1 extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
         ],
       ),
     );
@@ -853,11 +853,11 @@ class EnrollWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: Color.fromRGBO(26, 35, 126, 1), width: 2),
+          borderRadius: BorderRadius.circular(30.r),
+          border: Border.all(color: Color.fromRGBO(26, 35, 126, 1), width: 2.w),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -867,7 +867,7 @@ class EnrollWidget extends StatelessWidget {
               style: GoogleFonts.roboto(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 14.sp,
               ),
             ),
             Text(
@@ -875,8 +875,8 @@ class EnrollWidget extends StatelessWidget {
               style: TextStyle(
                 color: Color.fromRGBO(26, 35, 126, 1),
                 fontWeight: FontWeight.w900,
-                fontSize: 14,
-                letterSpacing: 1,
+                fontSize: 14.sp,
+                letterSpacing: 1.sp,
               ),
             ),
           ],
@@ -952,7 +952,7 @@ class _Step2 extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           border: Border.all(color: Colors.grey.shade200),
         ),
         padding: const EdgeInsets.all(14),
@@ -976,7 +976,7 @@ class _Step2 extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 2),
+            SizedBox(height: 2.h),
             RichText(
               text: const TextSpan(
                 style: TextStyle(fontSize: 11, color: Colors.grey),
@@ -994,7 +994,7 @@ class _Step2 extends StatelessWidget {
 
             _FieldLabel('Member Name', required: true),
             _InputField(controller: nameController, hint: 'Enter Member Name'),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
 
             Row(
               children: [
@@ -1012,7 +1012,7 @@ class _Step2 extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8.w),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1029,14 +1029,14 @@ class _Step2 extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
 
             _FieldLabelWithInfo('Mobile or E-mail Address', optional: true),
             _InputField(
               controller: contactController,
               hint: 'Enter Mobile Number or E-mail',
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
 
             _FieldLabelWithInfo('State Name', required: true),
             _DropdownField(
@@ -1045,7 +1045,7 @@ class _Step2 extends StatelessWidget {
               items: states,
               onChanged: onStateChanged,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
 
             _FieldLabel('District Name', required: true),
             _DropdownField(
@@ -1054,7 +1054,7 @@ class _Step2 extends StatelessWidget {
               items: districts,
               onChanged: onDistrictChanged,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
 
             _FieldLabel('Assembly · Vidhan Sabha', required: true),
             _DropdownField(
@@ -1063,7 +1063,7 @@ class _Step2 extends StatelessWidget {
               items: assemblies,
               onChanged: onAssemblyChanged,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
 
             _FieldLabelWithInfo('Membership Type', required: true),
             _DropdownField(
@@ -1072,7 +1072,7 @@ class _Step2 extends StatelessWidget {
               items: membershipTypes,
               onChanged: onMembershipTypeChanged,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
 
             _FieldLabelWithInfo('Member Activity', required: true),
             _DropdownField(
@@ -1081,10 +1081,10 @@ class _Step2 extends StatelessWidget {
               items: activities,
               onChanged: onActivityChanged,
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14.h),
 
             _TermsRow(agreed: agreed, onChanged: onAgreedChanged),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
 
             Row(
               children: [
@@ -1095,9 +1095,9 @@ class _Step2 extends StatelessWidget {
                       foregroundColor: Colors.black87,
                       side: const BorderSide(color: Colors.black26),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      padding: EdgeInsets.symmetric(vertical: 14.h),
                     ),
                     child: const Text(
                       'BACK',
@@ -1105,7 +1105,7 @@ class _Step2 extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
                 Expanded(
                   flex: 2,
                   child: ElevatedButton(
@@ -1115,9 +1115,9 @@ class _Step2 extends StatelessWidget {
                       foregroundColor: Colors.white,
                       disabledBackgroundColor: Colors.grey.shade300,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      padding: EdgeInsets.symmetric(vertical: 14.h),
                     ),
                     child: Text(
                       isFinalStep ? 'FINAL SUBMIT' : 'NEXT',
@@ -1127,7 +1127,7 @@ class _Step2 extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
           ],
         ),
       ),
@@ -1209,21 +1209,21 @@ class _FieldLabelWithInfo extends StatelessWidget {
               style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
             ),
           if (optional)
-            const Text(
+            Text(
               '  (OPTIONAL)',
               style: TextStyle(
                 color: Colors.grey,
-                fontSize: 10,
+                fontSize: 10.sp,
                 fontWeight: FontWeight.normal,
               ),
             ),
           if (note != null)
             Text(
               '  $note',
-              style: const TextStyle(color: Colors.grey, fontSize: 10),
+              style: TextStyle(color: Colors.grey, fontSize: 10.sp),
             ),
-          const SizedBox(width: 4),
-          const Icon(Icons.info_outline, size: 13, color: Colors.grey),
+          SizedBox(width: 4.w),
+          Icon(Icons.info_outline, size: 13.sp, color: Colors.grey),
         ],
       ),
     );
@@ -1249,7 +1249,7 @@ class _DropdownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
       decoration: BoxDecoration(
         color: bgColor,
         border: Border(
@@ -1289,7 +1289,7 @@ class _DropdownField extends StatelessWidget {
                   value: e,
                   child: Text(
                     e,
-                    style: const TextStyle(fontSize: 13),
+                    style: TextStyle(fontSize: 13.sp),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -1324,7 +1324,7 @@ class _InputField extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
-        style: const TextStyle(fontSize: 13),
+        style: TextStyle(fontSize: 13.sp),
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: GoogleFonts.roboto(
@@ -1332,12 +1332,9 @@ class _InputField extends StatelessWidget {
             fontSize: 14.sp,
             fontWeight: FontWeight.bold,
           ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 8,
-          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8.r),
             borderSide: BorderSide(color: AppTheme.primaryGreen),
           ),
           enabledBorder: OutlineInputBorder(
@@ -1356,10 +1353,7 @@ class _InputField extends StatelessWidget {
               topLeft: isFeildAttached ? Radius.zero : Radius.circular(8.r),
               bottomLeft: isFeildAttached ? Radius.zero : Radius.circular(8.r),
             ),
-            borderSide: const BorderSide(
-              color: AppTheme.primaryGreen,
-              width: 1.5,
-            ),
+            borderSide: BorderSide(color: AppTheme.primaryGreen, width: 1.5.w),
           ),
           filled: true,
           fillColor: Colors.white,
@@ -1386,15 +1380,15 @@ class _TermsRow extends StatelessWidget {
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           visualDensity: VisualDensity.compact,
         ),
-        const SizedBox(width: 4),
+        SizedBox(width: 4.w),
         RichText(
           text: TextSpan(
-            style: const TextStyle(fontSize: 12, color: Colors.black87),
+            style: TextStyle(fontSize: 12.sp, color: Colors.black87),
             children: [
               const TextSpan(text: 'I AGREE '),
               TextSpan(
                 text: 'TERMS',
-                style: const TextStyle(
+                style: TextStyle(
                   color: kPrimaryGreen,
                   fontWeight: FontWeight.bold,
                   decoration: TextDecoration.underline,

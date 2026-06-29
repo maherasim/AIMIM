@@ -79,12 +79,12 @@ class _KiteScreenState extends State<KiteScreen> {
         backgroundColor: kPrimaryGreen,
         elevation: 0,
         leading: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15.sp),
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: SvgPicture.asset('assets/svg/add-icon.svg'),
         ),
         // leadingWidth: 20,
         automaticallyImplyLeading: false,
-        title: const Row(
+        title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
@@ -92,10 +92,10 @@ class _KiteScreenState extends State<KiteScreen> {
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 16.sp,
               ),
             ),
-            Icon(Icons.keyboard_arrow_down, color: Colors.white),
+            Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 22.sp),
           ],
         ),
         centerTitle: true,
@@ -161,12 +161,12 @@ class _KitePostCardState extends State<_KitePostCard> {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const SizedBox(height: 14),
-              const Text(
+              SizedBox(height: 14.h),
+              Text(
                 'Share Post',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -184,7 +184,7 @@ class _KitePostCardState extends State<_KitePostCard> {
                   _ShareIcon(Icons.link, 'Copy Link', Colors.grey),
                 ],
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
             ],
           ),
         ),
@@ -244,8 +244,8 @@ class _KitePostCardState extends State<_KitePostCard> {
       onTap: widget.onTap,
       child: Container(
         color: Colors.white,
-        margin: EdgeInsets.only(bottom: 2.sp),
-        padding: const EdgeInsets.all(14),
+        margin: EdgeInsets.only(bottom: 2.h),
+        padding: EdgeInsets.all(14.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -253,7 +253,7 @@ class _KitePostCardState extends State<_KitePostCard> {
             Row(
               children: [
                 CircleAvatar(
-                  radius: 22.sp,
+                  radius: 22.r,
                   backgroundColor: kPrimaryGreen,
                   child: Container(
                     decoration: BoxDecoration(
@@ -263,14 +263,14 @@ class _KitePostCardState extends State<_KitePostCard> {
                         fit: BoxFit.cover,
                       ),
                       border: Border.all(
-                        width: 2.sp,
+                        width: 2.w,
                         color: AppTheme.primaryGreen,
                       ),
                     ),
                   ),
                 ),
 
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,7 +296,7 @@ class _KitePostCardState extends State<_KitePostCard> {
                         style: GoogleFonts.roboto(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                         ),
                       ),
                     ],
@@ -306,16 +306,16 @@ class _KitePostCardState extends State<_KitePostCard> {
                   onTap: () => setState(() => _following = !_following),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 4.h,
                     ),
                     decoration: BoxDecoration(
                       color: _following
                           ? kPrimaryGreen.withAlpha(25)
                           : kPrimaryGreen,
                       border: Border.all(color: kPrimaryGreen),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
                       _following ? 'Following' : 'Follow',
@@ -353,7 +353,7 @@ class _KitePostCardState extends State<_KitePostCard> {
 
             // Tags
             if ((post['tags'] as String?)?.isNotEmpty == true) ...[
-              const SizedBox(height: 6),
+              SizedBox(height: 6.h),
               Text(
                 post['tags'] as String,
                 style: const TextStyle(
@@ -455,7 +455,7 @@ class _KitePostCardState extends State<_KitePostCard> {
                     ],
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w),
 
                 // Bookmark
                 // GestureDetector(
@@ -473,8 +473,8 @@ class _KitePostCardState extends State<_KitePostCard> {
                   onTap: _showShare,
                   child: SvgPicture.asset(
                     'assets/svg/share.svg',
-                    width: 20,
-                    height: 20,
+                    width: 20.w,
+                    height: 20.h,
                   ),
                 ),
               ],
@@ -492,7 +492,7 @@ class _KitePostCardState extends State<_KitePostCard> {
         child: Image.asset(
           paths[0],
           width: double.infinity,
-          height: 180,
+          height: 180.h,
           fit: BoxFit.cover,
         ),
       );
@@ -508,7 +508,7 @@ class _KitePostCardState extends State<_KitePostCard> {
             .take(4)
             .map(
               (p) => ClipRRect(
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(6.r),
                 child: Image.asset(p, fit: BoxFit.cover),
               ),
             )
@@ -520,7 +520,7 @@ class _KitePostCardState extends State<_KitePostCard> {
   Widget _buildPlaceholderImages(int count) {
     if (count == 1) {
       return Container(
-        height: 180,
+        height: 180.h.h,
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(10),
@@ -572,18 +572,18 @@ class _ShareIcon extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: 52,
-            height: 52,
+            width: 52.w,
+            height: 52.h,
             decoration: BoxDecoration(
               color: color.withAlpha(25),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: color, size: 26),
+            child: Icon(icon, color: color, size: 26.sp),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4.h),
           Text(
             label,
-            style: const TextStyle(fontSize: 11, color: Colors.black87),
+            style: TextStyle(fontSize: 11.sp, color: Colors.black87),
           ),
         ],
       ),

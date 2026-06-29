@@ -121,32 +121,35 @@ class _ChatsScreenState extends State<ChatsScreen>
           ),
           onPressed: () => showModalBottomSheet(
             context: context,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
             ),
             builder: (_) => SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SizedBox(height: 8),
-                  const Text(
+                  SizedBox(height: 8.h),
+                  Text(
                     'New Conversation',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                  const Divider(),
+                  Divider(),
                   ListTile(
-                    leading: const Icon(Icons.person_add_outlined),
-                    title: const Text('New Direct Message'),
+                    leading: Icon(Icons.person_add_outlined),
+                    title: Text('New Direct Message'),
                     onTap: () => Navigator.pop(context),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.group_add_outlined),
-                    title: const Text('New Group'),
+                    leading: Icon(Icons.group_add_outlined),
+                    title: Text('New Group'),
                     onTap: () => Navigator.pop(context),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.campaign_outlined),
-                    title: const Text('New Broadcast'),
+                    leading: Icon(Icons.campaign_outlined),
+                    title: Text('New Broadcast'),
                     onTap: () => Navigator.pop(context),
                   ),
                 ],
@@ -155,73 +158,70 @@ class _ChatsScreenState extends State<ChatsScreen>
           ),
         ),
         title: Container(
-          height: 36,
-          margin: const EdgeInsets.only(right: 8),
+          height: 36.h,
+          margin: EdgeInsets.only(right: 8.w),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(30.r),
           ),
           child: TextField(
             controller: _searchController,
-
             decoration: InputDecoration(
               fillColor: Color.fromRGBO(41, 42, 46, 0.8),
               hintText: 'Search name',
-
-              // maintainHintHeight: false,
               hintStyle: GoogleFonts.roboto(
-                fontSize: 13,
+                fontSize: 13.sp,
                 color: Colors.white60,
               ),
-              prefixIcon: Icon(Icons.search, color: Colors.grey, size: 18),
+              prefixIcon: Icon(Icons.search, color: Colors.grey, size: 18.sp),
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.all(Radius.circular(30.r)),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 0.5),
-
                 borderRadius: BorderRadius.all(Radius.circular(30.r)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 0.5),
-
                 borderRadius: BorderRadius.all(Radius.circular(30.r)),
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 12.w,
+                vertical: 8.h,
+              ),
             ),
           ),
         ),
         actions: [
           SizedBox(width: 20.w),
-
           SvgPicture.asset('assets/svg/like.svg', color: Colors.white),
           SizedBox(width: 20.w),
           SvgPicture.asset('assets/svg/badge.svg'),
           IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.white),
+            icon: Icon(Icons.more_vert, color: Colors.white),
             onPressed: () => showModalBottomSheet(
               context: context,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
               ),
               builder: (_) => SafeArea(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.mark_chat_read_outlined),
-                      title: const Text('Mark all as read'),
+                      leading: Icon(Icons.mark_chat_read_outlined),
+                      title: Text('Mark all as read'),
                       onTap: () => Navigator.pop(context),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.archive_outlined),
-                      title: const Text('Archived chats'),
+                      leading: Icon(Icons.archive_outlined),
+                      title: Text('Archived chats'),
                       onTap: () => Navigator.pop(context),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.settings_outlined),
-                      title: const Text('Chat settings'),
+                      leading: Icon(Icons.settings_outlined),
+                      title: Text('Chat settings'),
                       onTap: () => Navigator.pop(context),
                     ),
                   ],
@@ -383,12 +383,9 @@ class _ContactList extends StatelessWidget {
       itemBuilder: (context, i) {
         final c = contacts[i];
         return ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 4,
-          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
           leading: Container(
-            width: 55.sp,
+            width: 55.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white),
@@ -408,12 +405,12 @@ class _ContactList extends StatelessWidget {
                 ),
               ),
               if (c['verified'] == true) ...[
-                const SizedBox(width: 4),
-                const Icon(Icons.verified, color: kPrimaryGreen, size: 14),
+                SizedBox(width: 4.w),
+                Icon(Icons.verified, color: kPrimaryGreen, size: 14.sp),
               ],
               if (c['prime'] == true) ...[
-                const SizedBox(width: 2),
-                const Icon(Icons.verified, color: Colors.blue, size: 13),
+                SizedBox(width: 2.w),
+                Icon(Icons.verified, color: Colors.blue, size: 13.sp),
               ],
             ],
           ),
@@ -424,7 +421,7 @@ class _ContactList extends StatelessWidget {
               Text(
                 "I'm on AIMIM APP as ${c['handle']}...",
                 style: GoogleFonts.roboto(
-                  fontSize: 11,
+                  fontSize: 11.sp,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -440,21 +437,18 @@ class _ContactList extends StatelessWidget {
               Text(
                 '12:41 pm',
                 style: GoogleFonts.roboto(
-                  fontSize: 10,
+                  fontSize: 10.sp,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               if ((c['unread'] as int) > 0)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 7,
-                    vertical: 2,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 2.h),
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(254, 101, 5, 1),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Text(
                     '${c['unread']} new',
