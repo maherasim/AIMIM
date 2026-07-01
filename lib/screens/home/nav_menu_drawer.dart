@@ -153,11 +153,11 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                         icon: 'assets/svg/user-round.svg',
                         isExpanded: true,
                       ),
-                      buildDrawerTile(
-                        title: 'My Contacts (1200)',
-                        icon: 'assets/svg/contact.svg',
-                      ),
 
+                      // buildDrawerTile(
+                      //   title: 'My Contacts (1200)',
+                      //   icon: 'assets/svg/contact.svg',
+                      // ),
                       buildDrawerTile(
                         title: 'Support Center',
                         icon: 'assets/svg/support.svg',
