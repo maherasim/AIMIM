@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../constants.dart';
 
@@ -26,7 +28,6 @@ class _ReelsCreateScreenState extends State<ReelsCreateScreen>
 
   // Controls
   int _modeIndex = 2; // 0=Live 1=Status 2=Reels 3=Post 4=Broadcast
-  FlashMode _flashMode = FlashMode.off;
   double _minZoom = 1.0;
   double _maxZoom = 1.0;
   double _currentZoom = 1.0;
@@ -40,10 +41,12 @@ class _ReelsCreateScreenState extends State<ReelsCreateScreen>
   @override
   void initState() {
     super.initState();
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 700),
@@ -102,17 +105,6 @@ class _ReelsCreateScreenState extends State<ReelsCreateScreen>
     await _setupController(_cameras[_cameraIndex]);
   }
 
-  Future<void> _cycleFlash() async {
-    if (_controller == null || !_isCameraReady) return;
-    final next = _flashMode == FlashMode.off
-        ? FlashMode.torch
-        : FlashMode.off;
-    try {
-      await _controller!.setFlashMode(next);
-      setState(() => _flashMode = next);
-    } catch (_) {}
-  }
-
   Future<void> _toggleRecording() async {
     if (_controller == null || !_isCameraReady) return;
     if (_isRecording) {
@@ -155,16 +147,6 @@ class _ReelsCreateScreenState extends State<ReelsCreateScreen>
     setState(() => _currentZoom = zoom);
   }
 
-  String get _timerLabel {
-    final m = _recordSeconds ~/ 60;
-    final s = _recordSeconds % 60;
-    return '${m.toString().padLeft(1, '0')}:${s.toString().padLeft(2, '0')}';
-  }
-
-  IconData get _flashIcon => _flashMode == FlashMode.torch
-      ? Icons.flash_on
-      : Icons.flash_off;
-
   @override
   void dispose() {
     _pulseController.dispose();
@@ -180,247 +162,219 @@ class _ReelsCreateScreenState extends State<ReelsCreateScreen>
       body: Stack(
         fit: StackFit.expand,
         children: [
-
-          // ── 1. Camera preview ────────────────────────────────────
+          // ── 1. Camera preview / Sky Mockup ──────────────────────
           GestureDetector(
             onScaleStart: _onScaleStart,
             onScaleUpdate: _onScaleUpdate,
             child: _buildCameraView(),
           ),
 
-          // ── 2. Top controls ──────────────────────────────────────
+          // ── 2. Top Progress Line ───────────────────────────────
           Positioned(
-            top: 0, left: 0, right: 0,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Close
-                    _CircleBtn(
-                      icon: Icons.close,
-                      onTap: () => Navigator.pop(context),
-                    ),
-                    // Right tools
-                    Row(children: [
-                      _CircleBtn(icon: _flashIcon, onTap: _cycleFlash),
-                      const SizedBox(width: 10),
-                      _CircleBtn(
-                        icon: Icons.music_note_outlined,
-                        onTap: () => _showMusicSheet(context),
-                      ),
-                      const SizedBox(width: 10),
-                      _CircleBtn(
-                        icon: Icons.auto_awesome_mosaic_outlined,
-                        onTap: () => _showEffectsSheet(context),
-                      ),
-                    ]),
-                  ],
+            top: MediaQuery.of(context).padding.top + 6.h,
+            left: 16.w,
+            right: 16.w,
+            child: Container(
+              height: 4.h,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(2.r),
+              ),
+              child: FractionallySizedBox(
+                alignment: Alignment.centerLeft,
+                widthFactor: _isRecording ? (_recordSeconds % 60) / 60 : 0.05,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
                 ),
               ),
             ),
           ),
 
-          // ── 3. REC badge ─────────────────────────────────────────
-          if (_isRecording)
+          // ── 3. Top controls ──────────────────────────────────────
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 16.h,
+            left: 16.w,
+            right: 16.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Close button X
+                _CircleBtn(
+                  icon: Icons.close,
+                  onTap: () => Navigator.pop(context),
+                ),
+                // Right tools (Music & AI)
+                Row(
+                  children: [
+                    _CircleBtn(
+                      icon: Icons.music_note_outlined,
+                      onTap: () => _showMusicSheet(context),
+                    ),
+                    SizedBox(width: 12.w),
+                    _CircleBtn(
+                      icon: Icons.auto_awesome_outlined,
+                      onTap: () => _showEffectsSheet(context),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // ── 4. Zoom indicator ────────────────────────────────────
+          if (_currentZoom > 1.05)
             Positioned(
-              top: MediaQuery.of(context).padding.top + 70,
-              left: 0, right: 0,
+              top: MediaQuery.of(context).padding.top + 80.h,
+              left: 0,
+              right: 0,
               child: Center(
-                child: AnimatedBuilder(
-                  animation: _pulseController,
-                  builder: (ctx, _) => Opacity(
-                    opacity: 0.7 + _pulseController.value * 0.3,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(mainAxisSize: MainAxisSize.min, children: [
-                        const Icon(Icons.fiber_manual_record,
-                            color: Colors.white, size: 10),
-                        const SizedBox(width: 6),
-                        Text('REC  $_timerLabel',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13)),
-                      ]),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                  child: Text(
+                    '${_currentZoom.toStringAsFixed(1)}×',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
                     ),
                   ),
                 ),
               ),
             ),
 
-          // ── 4. Zoom indicator ────────────────────────────────────
-          if (_currentZoom > 1.05)
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 70,
-              left: 0, right: 0,
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text('${_currentZoom.toStringAsFixed(1)}×',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13)),
-                ),
-              ),
-            ),
-
-          // ── 5. Side tools (Reels mode) ────────────────────────────
-          if (_modeIndex == 2)
-            Positioned(
-              right: 14, bottom: 185,
-              child: Column(children: [
-                _SideBtn(icon: Icons.speed, label: 'Speed', onTap: () {}),
-                const SizedBox(height: 18),
-                _SideBtn(icon: Icons.filter_outlined, label: 'Filter',
-                    onTap: () => _showEffectsSheet(context)),
-                const SizedBox(height: 18),
-                _SideBtn(icon: Icons.timer_outlined, label: 'Timer',
-                    onTap: () {}),
-                const SizedBox(height: 18),
-                _SideBtn(icon: Icons.flip_camera_android_outlined,
-                    label: 'Flip', onTap: _flipCamera),
-              ]),
-            ),
-
-          // ── 6. Bottom controls ────────────────────────────────────
+          // ── 5. Bottom controls overlay ───────────────────────────
           Positioned(
-            bottom: 0, left: 0, right: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  colors: [Colors.black, Colors.transparent],
+                  colors: [Colors.black54, Colors.transparent],
                 ),
               ),
               child: SafeArea(
                 top: false,
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
-
-                  // Recording progress bar
-                  if (_isRecording)
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Gallery | Record Button | Camera Icon
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 4),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(2),
-                        child: LinearProgressIndicator(
-                          value: (_recordSeconds % 60) / 60,
-                          backgroundColor: Colors.white24,
-                          valueColor: const AlwaysStoppedAnimation<Color>(
-                              Colors.red),
-                          minHeight: 3,
-                        ),
+                      padding: EdgeInsets.fromLTRB(28.w, 10.h, 28.w, 16.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // Gallery thumbnail showing female face with glasses
+                          GestureDetector(
+                            onTap: _pickFromGallery,
+                            child: Container(
+                              width: 50.w,
+                              height: 50.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.r),
+                                border: Border.all(color: Colors.white, width: 1.5),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(6.r),
+                                child: Image.network(
+                                  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) => Container(
+                                    color: const Color(0xFF2A2A2A),
+                                    child: const Icon(
+                                      Icons.photo_library_outlined,
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          // Giant Record/Capture Button
+                          GestureDetector(
+                            onTap: _isCameraReady ? _toggleRecording : null,
+                            child: AnimatedBuilder(
+                              animation: _pulseController,
+                              builder: (ctx, _) => Transform.scale(
+                                scale: _isRecording
+                                    ? 1.0 + _pulseController.value * 0.05
+                                    : 1.0,
+                                child: _RecordBtn(recording: _isRecording),
+                              ),
+                            ),
+                          ),
+
+                          // Camera outline icon
+                          GestureDetector(
+                            onTap: _flipCamera,
+                            child: Container(
+                              width: 50.w,
+                              height: 50.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.black.withValues(alpha: 0.4),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  color: Colors.white,
+                                  size: 26.w,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
 
-                  // Gallery | Record | Flip
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(28, 10, 28, 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Gallery thumbnail
-                        GestureDetector(
-                          onTap: _pickFromGallery,
-                          child: Container(
-                            width: 54, height: 54,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  color: Colors.white, width: 1.5),
-                              color: const Color(0xFF2A2A2A),
+                    // Mode tabs (Live, Status, Reels, Post, Broadcast)
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 16.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List.generate(_modes.length, (i) {
+                          final sel = i == _modeIndex;
+                          return GestureDetector(
+                            onTap: () => setState(() => _modeIndex = i),
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16.w,
+                                vertical: 6.h,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border: sel
+                                    ? Border.all(color: Colors.white, width: 1.5)
+                                    : null,
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                              child: Text(
+                                _modes[i],
+                                style: GoogleFonts.roboto(
+                                  color: sel ? Colors.white : Colors.white.withValues(alpha: 0.65),
+                                  fontWeight: sel ? FontWeight.bold : FontWeight.w400,
+                                  fontSize: 13.sp,
+                                ),
+                              ),
                             ),
-                            child: const Icon(Icons.photo_library_outlined,
-                                color: Colors.white70, size: 26),
-                          ),
-                        ),
-
-                        // Record button
-                        GestureDetector(
-                          onTap: _isCameraReady ? _toggleRecording : null,
-                          child: AnimatedBuilder(
-                            animation: _pulseController,
-                            builder: (ctx, _) => Transform.scale(
-                              scale: _isRecording
-                                  ? 1.0 + _pulseController.value * 0.05
-                                  : 1.0,
-                              child: _RecordBtn(recording: _isRecording),
-                            ),
-                          ),
-                        ),
-
-                        // Flip camera
-                        GestureDetector(
-                          onTap: _flipCamera,
-                          child: Container(
-                            width: 54, height: 54,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.black45,
-                              border: Border.all(
-                                  color: Colors.white54, width: 1.5),
-                            ),
-                            child: const Icon(
-                                Icons.flip_camera_android_outlined,
-                                color: Colors.white, size: 26),
-                          ),
-                        ),
-                      ],
+                          );
+                        }),
+                      ),
                     ),
-                  ),
-
-                  // Mode tabs
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(_modes.length, (i) {
-                        final sel = i == _modeIndex;
-                        return GestureDetector(
-                          onTap: () => setState(() => _modeIndex = i),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 7),
-                            decoration: BoxDecoration(
-                              color: sel ? Colors.white : Colors.transparent,
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            child: Text(_modes[i],
-                                style: TextStyle(
-                                    color: sel ? Colors.black : Colors.white,
-                                    fontWeight: sel
-                                        ? FontWeight.bold
-                                        : FontWeight.w400,
-                                    fontSize: 14,
-                                    shadows: sel
-                                        ? null
-                                        : const [
-                                            Shadow(
-                                                color: Colors.black,
-                                                blurRadius: 6)
-                                          ])),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
             ),
           ),
@@ -430,33 +384,11 @@ class _ReelsCreateScreenState extends State<ReelsCreateScreen>
   }
 
   Widget _buildCameraView() {
-    if (_cameraError) {
-      return Container(
-        color: const Color(0xFF111111),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.no_photography_outlined,
-                color: Colors.white38, size: 60),
-            const SizedBox(height: 12),
-            const Text('Camera not available',
-                style: TextStyle(color: Colors.white54, fontSize: 14)),
-            const SizedBox(height: 6),
-            const Text(
-                'Grant camera permission in Settings',
-                style: TextStyle(color: Colors.white38, fontSize: 12)),
-          ],
-        ),
-      );
-    }
-
-    if (!_isCameraReady || _controller == null) {
-      return Container(
-        color: Colors.black,
-        child: const Center(
-          child: CircularProgressIndicator(
-              color: Colors.white, strokeWidth: 2),
-        ),
+    if (_cameraError || !_isCameraReady || _controller == null) {
+      // Mock skyscraper background matching the user attachment
+      return Image.network(
+        'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1080',
+        fit: BoxFit.cover,
       );
     }
 
@@ -482,7 +414,8 @@ class _ReelsCreateScreenState extends State<ReelsCreateScreen>
       context: ctx,
       backgroundColor: const Color(0xFF1C1C1C),
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
       builder: (_) => const _MusicSheet(),
     );
   }
@@ -492,7 +425,8 @@ class _ReelsCreateScreenState extends State<ReelsCreateScreen>
       context: ctx,
       backgroundColor: const Color(0xFF1C1C1C),
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
       builder: (_) => const _EffectsSheet(),
     );
   }
@@ -507,21 +441,22 @@ class _RecordBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 82, height: 82,
+      width: 76.w,
+      height: 76.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 4),
+        border: Border.all(color: Colors.white, width: 4.w),
       ),
       child: Center(
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
-          width: recording ? 30 : 64,
-          height: recording ? 30 : 64,
+          width: recording ? 26.w : 58.w,
+          height: recording ? 26.w : 58.w,
           decoration: BoxDecoration(
             color: Colors.red,
             shape: recording ? BoxShape.rectangle : BoxShape.circle,
-            borderRadius: recording ? BorderRadius.circular(8) : null,
+            borderRadius: recording ? BorderRadius.circular(8.r) : null,
           ),
         ),
       ),
@@ -541,45 +476,14 @@ class _CircleBtn extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 44, height: 44,
+        width: 40.w,
+        height: 40.w,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.black54,
-          border: Border.all(color: Colors.white30),
+          color: Colors.black.withValues(alpha: 0.4),
         ),
-        child: Icon(icon, color: Colors.white, size: 22),
+        child: Icon(icon, color: Colors.white, size: 20.w),
       ),
-    );
-  }
-}
-
-class _SideBtn extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-  const _SideBtn(
-      {required this.icon, required this.label, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(children: [
-        Container(
-          width: 44, height: 44,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.black54,
-            border: Border.all(color: Colors.white24),
-          ),
-          child: Icon(icon, color: Colors.white, size: 20),
-        ),
-        const SizedBox(height: 3),
-        Text(label,
-            style: const TextStyle(
-                color: Colors.white70, fontSize: 10,
-                shadows: [Shadow(color: Colors.black, blurRadius: 4)])),
-      ]),
     );
   }
 }
@@ -602,55 +506,88 @@ class _MusicSheet extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Padding(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Container(width: 40, height: 4,
-            decoration: BoxDecoration(color: Colors.white24,
-                borderRadius: BorderRadius.circular(2))),
-        const SizedBox(height: 16),
-        const Text('Add Music',
-            style: TextStyle(color: Colors.white,
-                fontWeight: FontWeight.bold, fontSize: 16)),
-        const SizedBox(height: 12),
-        Container(
-          height: 40,
-          decoration: BoxDecoration(color: Colors.white12,
-              borderRadius: BorderRadius.circular(20)),
-          child: const TextField(
-            style: TextStyle(color: Colors.white, fontSize: 13),
-            decoration: InputDecoration(
-              hintText: 'Search music...',
-              hintStyle: TextStyle(color: Colors.white38, fontSize: 13),
-              prefixIcon: Icon(Icons.search, color: Colors.white38, size: 18),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 10),
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        ..._tracks.map((t) => ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Container(
-                width: 40, height: 40,
-                decoration: BoxDecoration(
-                    color: kPrimaryGreen.withAlpha(60),
-                    borderRadius: BorderRadius.circular(8)),
-                child: const Icon(Icons.music_note,
-                    color: Colors.white70, size: 18),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(2),
               ),
-              title: Text(t.$1,
-                  style: const TextStyle(color: Colors.white,
-                      fontWeight: FontWeight.w600, fontSize: 13)),
-              subtitle: Text(t.$2,
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Add Music',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white12,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const TextField(
+                style: TextStyle(color: Colors.white, fontSize: 13),
+                decoration: InputDecoration(
+                  hintText: 'Search music...',
+                  hintStyle: TextStyle(color: Colors.white38, fontSize: 13),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.white38,
+                    size: 18,
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(vertical: 10),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            ..._tracks.map(
+              (t) => ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: kPrimaryGreen.withAlpha(60),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.music_note,
+                    color: Colors.white70,
+                    size: 18,
+                  ),
+                ),
+                title: Text(
+                  t.$1,
                   style: const TextStyle(
-                      color: Colors.white54, fontSize: 11)),
-              trailing: Text(t.$3,
-                  style: const TextStyle(
-                      color: Colors.white38, fontSize: 11)),
-              onTap: () => Navigator.pop(context),
-            )),
-      ]),
-    ),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                ),
+                subtitle: Text(
+                  t.$2,
+                  style: const TextStyle(color: Colors.white54, fontSize: 11),
+                ),
+                trailing: Text(
+                  t.$3,
+                  style: const TextStyle(color: Colors.white38, fontSize: 11),
+                ),
+                onTap: () => Navigator.pop(context),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -673,43 +610,67 @@ class _EffectsSheet extends StatelessWidget {
       top: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Container(width: 40, height: 4,
-              decoration: BoxDecoration(color: Colors.white24,
-                  borderRadius: BorderRadius.circular(2))),
-          const SizedBox(height: 16),
-          const Text('Effects & Filters',
-              style: TextStyle(color: Colors.white,
-                  fontWeight: FontWeight.bold, fontSize: 16)),
-          const SizedBox(height: 16),
-          GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 3,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.1,
-            physics: const NeverScrollableScrollPhysics(),
-            children: _effects.map((e) => GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 56, height: 56,
-                    decoration: BoxDecoration(
-                        color: Colors.white12,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.white24)),
-                    child: Icon(e.$1, color: Colors.white70, size: 26),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(e.$2, style: const TextStyle(
-                      color: Colors.white70, fontSize: 11)),
-                ],
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(2),
               ),
-            )).toList(),
-          ),
-        ]),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Effects & Filters',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 16),
+            GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 1.1,
+              physics: const NeverScrollableScrollPhysics(),
+              children: _effects
+                  .map(
+                    (e) => GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 56,
+                            height: 56,
+                            decoration: BoxDecoration(
+                              color: Colors.white12,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.white24),
+                            ),
+                            child: Icon(e.$1, color: Colors.white70, size: 26),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            e.$2,
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+        ),
       ),
     );
   }

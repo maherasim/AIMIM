@@ -78,9 +78,12 @@ class _KiteScreenState extends State<KiteScreen> {
       appBar: AppBar(
         backgroundColor: kPrimaryGreen,
         elevation: 0,
-        leading: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: SvgPicture.asset('assets/svg/add-icon.svg'),
+        leading: GestureDetector(
+          onTap: _openCreate,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: SvgPicture.asset('assets/svg/add-icon.svg'),
+          ),
         ),
         // leadingWidth: 20,
         automaticallyImplyLeading: false,

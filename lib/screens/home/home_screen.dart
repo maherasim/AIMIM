@@ -122,7 +122,7 @@ class StatsSection extends StatelessWidget {
                       child: Column(
                         children: [
                           buildValueBox(
-                            title: 'My Family & Relatives',
+                            title: 'Family Members',
                             value: '123',
                             icon: 'assets/svg/Icon-add-user.svg',
                             isIconBtn: true,

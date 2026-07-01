@@ -19,7 +19,7 @@ class AppTheme {
   static const Color cardBorder = primaryGreen;
   static const Color textPrimary = black;
   static const Color textSecondary = greyText;
-  static const Color textAccent = primaryGreen;
+  static const Color greenAccent = Color.fromRGBO(0, 255, 83, 1);
 
   static const List<Color> backgroundGradient = [
     primaryGreen,
@@ -75,7 +75,7 @@ class AppTheme {
 
   static TextStyle dailyTrackerHeadlineSmallStyle(BuildContext context) {
     return GoogleFonts.inter(
-      color: textAccent,
+      color: greenAccent,
       fontSize: ipadAwareSp(context, mobileSpValue: 16, ipadSpValue: 14),
       fontWeight: FontWeight.w600,
     );
@@ -197,7 +197,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         headlineLarge: GoogleFonts.montserrat(
-          color: textAccent,
+          color: greenAccent,
           fontSize: 22.sp,
           fontWeight: FontWeight.w800,
         ),
