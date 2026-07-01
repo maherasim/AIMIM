@@ -1,4 +1,8 @@
+import 'package:aimim_mobile_app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../constants.dart';
 import '../membership/membership_form_screen.dart';
 import 'profile_screen.dart';
@@ -7,8 +11,8 @@ class BuildTeamScreen extends StatelessWidget {
   const BuildTeamScreen({super.key});
 
   static final _members = List<Map<String, String>>.generate(
-    20,
-    (_) => {
+    15,
+    (i) => {
       'name': 'A. H. A. KHAN',
       'id': '001123456',
       'ac': 'AC 314 DHANGHATA',
@@ -20,63 +24,85 @@ class BuildTeamScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Colors.white.withValues(alpha: 0.9),
       appBar: AppBar(
         backgroundColor: kPrimaryGreen,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Build Your Team',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
-        actions: [
-          CircleAvatar(
-            radius: 16,
-            backgroundColor: Colors.white24,
-            child: const Icon(Icons.person, color: Colors.white, size: 18),
-          ),
-          const SizedBox(width: 8),
-          // Help button
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0xFF25D366),
-              borderRadius: BorderRadius.circular(20),
+        leadingWidth: 50.w,
+        leading: Center(
+          child: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: SvgPicture.asset(
+              'assets/svg/arrow_back.svg',
+              // width: 18.w,
+              // height: 18.w,
+              // color: Colors.white,
             ),
-            child: const Row(
-              children: [
-                Text(
-                  'Help?',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
+          ),
+        ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Build Your Team',
+              style: GoogleFonts.roboto(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp,
+              ),
+            ),
+            SizedBox(width: 8.w),
+            SvgPicture.asset(
+              'assets/svg/amim-logo.svg',
+              // width: 18.w,
+              // height: 18.w,
+              // color: Colors.white,
+            ),
+          ],
+        ),
+        centerTitle: false,
+        actions: [
+          // WhatsApp Help Button
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 12.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+              decoration: BoxDecoration(
+                color: const Color(0xFF00E676),
+                borderRadius: BorderRadius.circular(20.r),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    'Help?',
+                    style: GoogleFonts.roboto(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13.sp,
+                    ),
                   ),
-                ),
-                SizedBox(width: 4),
-                Icon(Icons.chat_rounded, color: Colors.white, size: 14),
-              ],
+                  SizedBox(width: 4.w),
+                  SvgPicture.asset(
+                    'assets/svg/whatsapp-1.svg',
+                    color: Colors.white,
+                    height: 20.sp,
+                  ),
+                ],
+              ),
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.white),
+            icon: Icon(Icons.more_vert, color: Colors.white, size: 22.w),
             onPressed: () {},
           ),
         ],
       ),
       body: Column(
         children: [
-          // Stats row
+          // Stats Row (Card 1: Dark Green, Card 2: White/Border)
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(12.w),
             child: Row(
               children: [
                 Expanded(
@@ -84,23 +110,23 @@ class BuildTeamScreen extends StatelessWidget {
                     title: 'My Team Members',
                     count: 399,
                     actionLabel: 'Invite Friends\nShare Link',
-                    actionIcon: Icons.share_outlined,
                     onAction: () {},
+                    isDark: true,
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 10.w),
                 Expanded(
                   child: _StatCard(
                     title: 'Onboard New Member',
                     count: 99,
                     actionLabel: 'ADD',
-                    actionIcon: Icons.person_add_outlined,
                     onAction: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (_) => const MembershipFormScreen(),
                       ),
                     ),
+                    isDark: false,
                     isAdd: true,
                   ),
                 ),
@@ -108,23 +134,27 @@ class BuildTeamScreen extends StatelessWidget {
             ),
           ),
 
-          // List header
+          // Divider Line
+          Divider(color: AppTheme.greyText, height: 1.h),
+
+          // List Header Title
           Padding(
-            padding: const EdgeInsets.fromLTRB(14, 0, 14, 6),
+            padding: EdgeInsets.fromLTRB(14.w, 12.h, 14.w, 8.h),
             child: Row(
               children: [
                 Text(
-                  'My Team Member List (${_members.length + 479})',
-                  style: const TextStyle(
+                  'My Team Member List (${_members.length + 484})',
+                  style: GoogleFonts.roboto(
+                    color: AppTheme.primaryGreen,
                     fontWeight: FontWeight.bold,
-                    fontSize: 13,
+                    fontSize: 14.sp,
                   ),
                 ),
               ],
             ),
           ),
 
-          // Member list
+          // Member List
           Expanded(
             child: ListView.builder(
               itemCount: _members.length,
@@ -137,12 +167,13 @@ class BuildTeamScreen extends StatelessWidget {
                   ac: m['ac']!,
                   district: m['district']!,
                   state: m['state']!,
+                  highlighted: i == 0,
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) => ProfileScreen(
                         name: m['name']!,
-                        heroTag: 'build_team_profile_${m['name']!}',
+                        heroTag: 'build_team_profile_${m['name']!}_$i',
                       ),
                     ),
                   ),
@@ -152,18 +183,6 @@ class BuildTeamScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const MembershipFormScreen()),
-        ),
-        backgroundColor: kPrimaryGreen,
-        icon: const Icon(Icons.person_add, color: Colors.white),
-        label: const Text(
-          'Add Member',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
     );
   }
 }
@@ -172,27 +191,32 @@ class _StatCard extends StatelessWidget {
   final String title;
   final int count;
   final String actionLabel;
-  final IconData actionIcon;
   final VoidCallback onAction;
+  final bool isDark;
   final bool isAdd;
 
   const _StatCard({
     required this.title,
     required this.count,
     required this.actionLabel,
-    required this.actionIcon,
     required this.onAction,
+    required this.isDark,
     this.isAdd = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final bgColor = isDark ? kPrimaryGreen : Colors.white;
+    final textColor = isDark ? Colors.white : kPrimaryGreen;
+    final infoColor = isDark ? Colors.white70 : Colors.black45;
+    final buttonColor = isDark ? Colors.black : kPrimaryGreen;
+
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
+        color: bgColor,
+        borderRadius: BorderRadius.circular(12.r),
+        border: isDark ? null : Border.all(color: AppTheme.primaryGreen),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,57 +226,57 @@ class _StatCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: kDarkGreen,
+                  style: GoogleFonts.roboto(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
                   ),
                 ),
               ),
-              const Icon(Icons.info_outline, size: 13, color: Colors.grey),
+              Icon(Icons.info_outline, size: 14.w, color: infoColor),
             ],
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 '$count',
-                style: const TextStyle(
+                style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w900,
-                  fontSize: 26,
-                  color: kDarkGreen,
+                  fontSize: 28.sp,
+                  color: textColor,
                 ),
               ),
-              const SizedBox(width: 4),
-              const Icon(Icons.group_outlined, color: Colors.grey, size: 18),
+              SizedBox(width: 4.w),
+              Icon(Icons.group_outlined, color: infoColor, size: 20.w),
               const Spacer(),
               GestureDetector(
                 onTap: onAction,
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: isAdd ? 12 : 8,
-                    vertical: 6,
+                    horizontal: isAdd ? 12.w : 8.w,
+                    vertical: 6.h,
                   ),
                   decoration: BoxDecoration(
-                    color: kPrimaryGreen,
-                    borderRadius: BorderRadius.circular(8),
+                    color: buttonColor,
+                    borderRadius: BorderRadius.circular(6.r),
                   ),
                   child: isAdd
                       ? Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             Icon(
-                              Icons.person_add_outlined,
+                              Icons.person_add_alt_1_outlined,
                               color: Colors.white,
-                              size: 14,
+                              size: 14.w,
                             ),
-                            SizedBox(width: 4),
+                            SizedBox(width: 4.w),
                             Text(
                               'ADD',
-                              style: TextStyle(
+                              style: GoogleFonts.roboto(
                                 color: Colors.white,
-                                fontSize: 12,
+                                fontSize: 11.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -261,10 +285,11 @@ class _StatCard extends StatelessWidget {
                       : Text(
                           actionLabel,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: GoogleFonts.roboto(
                             color: Colors.white,
-                            fontSize: 10,
+                            fontSize: 9.sp,
                             fontWeight: FontWeight.bold,
+                            height: 1.25,
                           ),
                         ),
                 ),
@@ -280,6 +305,7 @@ class _StatCard extends StatelessWidget {
 class _MemberRow extends StatelessWidget {
   final int number;
   final String name, id, ac, district, state;
+  final bool highlighted;
   final VoidCallback onTap;
 
   const _MemberRow({
@@ -289,35 +315,39 @@ class _MemberRow extends StatelessWidget {
     required this.ac,
     required this.district,
     required this.state,
+    required this.highlighted,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final rowBgColor = highlighted
+        ? const Color(0xFFD0F8E8)
+        : Colors.white.withValues(alpha: 0.9);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade200),
+          color: rowBgColor,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(color: AppTheme.primaryGreen),
         ),
         child: Row(
           children: [
             SizedBox(
-              width: 24,
+              width: 28.w,
               child: Text(
                 '$number',
-                style: const TextStyle(
+                style: GoogleFonts.roboto(
                   fontWeight: FontWeight.bold,
-                  fontSize: 13,
+                  fontSize: 14.sp,
                   color: kDarkGreen,
                 ),
               ),
             ),
-            const SizedBox(width: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -326,32 +356,56 @@ class _MemberRow extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
+                        style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.sp,
                           color: kDarkGreen,
                         ),
                       ),
-                      const Text(' · ', style: TextStyle(color: Colors.grey)),
+                      Text(
+                        ' • ',
+                        style: GoogleFonts.roboto(
+                          color: kDarkGreen,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       Text(
                         id,
-                        style: const TextStyle(
-                          fontSize: 12,
+                        style: GoogleFonts.roboto(
+                          fontSize: 13.sp,
                           color: kDarkGreen,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 2),
+                  SizedBox(height: 0.h),
                   Text(
-                    '$ac · $district · $state',
-                    style: const TextStyle(fontSize: 10, color: Colors.grey),
+                    '$ac • $district • $state',
+                    style: GoogleFonts.roboto(
+                      fontSize: 10.sp,
+                      color: AppTheme.primaryGreen,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+            Container(
+              width: 22.w,
+              height: 22.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: kPrimaryGreen, width: 1.2),
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.chevron_right,
+                  color: kPrimaryGreen,
+                  size: 14.w,
+                ),
+              ),
+            ),
           ],
         ),
       ),

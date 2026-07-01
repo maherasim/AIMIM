@@ -17,7 +17,7 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: AppTheme.primaryGreen,
-      width: 300.w,
+      width: 350.w,
       child: Column(
         children: [
           // â”€â”€ User profile header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -40,13 +40,13 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
               ],
             ),
           ),
-          SizedBox(height: 15.h),
+          SizedBox(height: 10.h),
           Stack(
             clipBehavior: Clip.none,
             alignment: AlignmentGeometry.center,
             children: [
               Container(
-                width: 300.w,
+                width: 350.w,
                 height: 2.h,
                 decoration: BoxDecoration(color: Colors.white),
               ),
@@ -74,12 +74,12 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
               ),
             ],
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 15.h),
           Expanded(
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.h),
+                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                   // padding: EdgeInsets.all(5.sp),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 1.5),
@@ -91,11 +91,11 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                       buildUserinfo(),
                       // SizedBox(height: 5.h),
                       buildAlert(),
-                      SizedBox(height: 5.h),
+                      // SizedBox(height: 5.h),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 5.w,
-                          vertical: 10.h,
+                          vertical: 8.h,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,10 +171,7 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 30.w,
-                    vertical: 10.h,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 5.h),
                   child: Image.asset('assets/images/cat-whatsaopop.png'),
                 ),
                 Text(
@@ -187,7 +184,16 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                 ),
                 Spacer(),
                 Image.asset('assets/images/ooter-1.png'),
-                SizedBox(height: 90.h),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 5.h,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -213,36 +219,40 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
               )
             : BorderRadius.circular(0),
       ),
-      child: ExpansionTile(
-        leading: SvgPicture.asset(
-          icon,
-          color: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
-        ),
-        visualDensity: VisualDensity.compact,
-        initiallyExpanded: isExpanded,
-
-        iconColor: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
-        title: Text(
-          title,
-          style: GoogleFonts.roboto(
+      child: Material(
+        type: MaterialType.transparency,
+        child: ExpansionTile(
+          tilePadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
+          leading: SvgPicture.asset(
+            icon,
             color: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
-            fontWeight: FontWeight.bold,
-            fontSize: 16.sp,
           ),
+          visualDensity: VisualDensity.compact,
+          initiallyExpanded: isExpanded,
+
+          iconColor: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
+          title: Text(
+            title,
+            style: GoogleFonts.roboto(
+              color: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp,
+            ),
+          ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
+          expandedAlignment: Alignment.bottomLeft,
+          childrenPadding: EdgeInsets.symmetric(horizontal: 15.w),
+          children: [
+            buildDataColumn(
+              title: 'Current Residency: ',
+              value: 'Mumbai, Maharashtra',
+            ),
+            buildDataColumn(
+              title: 'Voting Location: ',
+              value: 'Noida, Uttar Pradesh',
+            ),
+          ],
         ),
-        expandedCrossAxisAlignment: .start,
-        expandedAlignment: .bottomLeft,
-        childrenPadding: EdgeInsets.symmetric(horizontal: 15.w),
-        children: [
-          buildDataColumn(
-            title: 'Current Residency: ',
-            value: 'Mumbai, Maharashtra',
-          ),
-          buildDataColumn(
-            title: 'Voting Location: ',
-            value: 'Noida, Uttar Pradesh',
-          ),
-        ],
       ),
     );
   }

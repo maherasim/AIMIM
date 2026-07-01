@@ -1,4 +1,5 @@
-﻿import 'package:aimim_mobile_app/screens/home/nav_menu_drawer.dart';
+﻿import 'package:aimim_mobile_app/screens/home/build_team_screen.dart';
+import 'package:aimim_mobile_app/screens/home/nav_menu_drawer.dart';
 import 'package:aimim_mobile_app/screens/membership/membership_form_screen.dart';
 import 'package:aimim_mobile_app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.transparent,
           drawer: NavMenuDrawer(),
           appBar: AppBar(
+            shadowColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
             leading: GestureDetector(
               onTap: () {
                 _scaffoldKey.currentState?.openDrawer();
@@ -127,6 +132,7 @@ class StatsSection extends StatelessWidget {
                             icon: 'assets/svg/Icon-add-user.svg',
                             isIconBtn: true,
                             btntext: 'Add',
+                            onTap: () {},
                           ),
                           buildValueBox(
                             title: 'Feedback, Poll & Survey',
@@ -134,6 +140,7 @@ class StatsSection extends StatelessWidget {
                             icon: 'assets/svg/thumbup.svg',
                             isIconBtn: true,
                             btntext: 'Add',
+                            onTap: () {},
                           ),
                           buildValueBox(
                             title: 'Opportunities',
@@ -141,6 +148,7 @@ class StatsSection extends StatelessWidget {
                             icon: 'assets/svg/oppur.svg',
                             isIconBtn: false,
                             btntext: 'Apply',
+                            onTap: () {},
                           ),
                         ],
                       ),
@@ -151,6 +159,14 @@ class StatsSection extends StatelessWidget {
                         children: [
                           buildValueBox(
                             title: 'My Team (25)',
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const BuildTeamScreen(),
+                                ),
+                              );
+                            },
                             value: '3515',
                             icon: 'assets/svg/Icon-add-user.svg',
                             isIconBtn: false,
@@ -216,88 +232,95 @@ class StatsSection extends StatelessWidget {
     );
   }
 
-  Container buildValueBox({
+  Widget buildValueBox({
     required String title,
     required String value,
     required String icon,
     required String btntext,
     required bool isIconBtn,
     bool isFill = false,
+    required VoidCallback onTap,
   }) {
-    return Container(
-      // width: double.infinity,
-      margin: EdgeInsets.only(bottom: 10.w),
-      padding: EdgeInsets.all(5.w),
-      decoration: BoxDecoration(
-        color: isFill ? AppTheme.primaryGreen : Colors.white,
-        border: Border.all(
-          color: AppTheme.primaryGreen.withValues(alpha: 0.5),
+    return Bounceable(
+      onTap: onTap,
+      child: Container(
+        // width: double.infinity,
+        margin: EdgeInsets.only(bottom: 10.w),
+        padding: EdgeInsets.all(5.w),
+        decoration: BoxDecoration(
+          color: isFill ? AppTheme.primaryGreen : Colors.white,
+          border: Border.all(
+            color: AppTheme.primaryGreen.withValues(alpha: 0.5),
 
-          width: 1.sp,
+            width: 1.sp,
+          ),
+          borderRadius: BorderRadius.circular(10.r),
         ),
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      child: Column(
-        crossAxisAlignment: .start,
+        child: Column(
+          crossAxisAlignment: .start,
 
-        children: [
-          Text(
-            title,
-            style: GoogleFonts.roboto(
-              fontSize: 14.sp,
-              color: isFill ? Colors.white : AppTheme.primaryGreen,
-              fontWeight: FontWeight.bold,
+          children: [
+            Text(
+              title,
+              style: GoogleFonts.roboto(
+                fontSize: 14.sp,
+                color: isFill ? Colors.white : AppTheme.primaryGreen,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          SizedBox(height: 20.h),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: .spaceBetween,
-            children: [
-              Text(
-                value,
-                style: GoogleFonts.roboto(
-                  fontSize: 30.sp,
-                  height: 0.8,
-                  color: isFill ? Colors.white : AppTheme.primaryGreen,
-                  fontWeight: FontWeight.bold,
+            SizedBox(height: 20.h),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: .spaceBetween,
+              children: [
+                Text(
+                  value,
+                  style: GoogleFonts.roboto(
+                    fontSize: 30.sp,
+                    height: 0.8,
+                    color: isFill ? Colors.white : AppTheme.primaryGreen,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
 
-              Container(
-                margin: EdgeInsets.only(left: 0.w, bottom: 2.w),
-                child: SvgPicture.asset(
-                  icon,
-                  height: 20.h,
-                  color: isFill ? Colors.white : AppTheme.primaryGreen,
+                Container(
+                  margin: EdgeInsets.only(left: 0.w, bottom: 2.w),
+                  child: SvgPicture.asset(
+                    icon,
+                    height: 20.h,
+                    color: isFill ? Colors.white : AppTheme.primaryGreen,
+                  ),
                 ),
-              ),
 
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                decoration: BoxDecoration(
-                  color: isFill ? Colors.white : AppTheme.primaryGreen,
-                  borderRadius: BorderRadius.circular(5.r),
-                ),
-                margin: EdgeInsets.only(left: 8.w),
-                child: Row(
-                  children: [
-                    if (isIconBtn)
-                      SvgPicture.asset('assets/svg/Icon-add-user.svg'),
-                    Text(
-                      btntext,
-                      style: GoogleFonts.roboto(
-                        fontSize: 16.sp,
-                        color: isFill ? AppTheme.primaryGreen : Colors.white,
-                        fontWeight: FontWeight.bold,
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 5.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isFill ? Colors.white : AppTheme.primaryGreen,
+                    borderRadius: BorderRadius.circular(5.r),
+                  ),
+                  margin: EdgeInsets.only(left: 8.w),
+                  child: Row(
+                    children: [
+                      if (isIconBtn)
+                        SvgPicture.asset('assets/svg/Icon-add-user.svg'),
+                      Text(
+                        btntext,
+                        style: GoogleFonts.roboto(
+                          fontSize: 16.sp,
+                          color: isFill ? AppTheme.primaryGreen : Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -310,34 +333,12 @@ class Memberheader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Quick Access',
-                style: GoogleFonts.roboto(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 16.sp,
-                ),
-              ),
-              Row(
-                children: [
-                  SvgPicture.asset('assets/svg/thunmb-arrow.svg'),
-                  SizedBox(width: 5.w),
-                  Text(
-                    'Learning Hub',
-                    style: GoogleFonts.roboto(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+        Container(
+          height: 5.h,
+          width: 70.w,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.r),
           ),
         ),
         Bounceable(

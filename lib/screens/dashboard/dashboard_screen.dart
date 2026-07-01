@@ -33,38 +33,50 @@ class _DashboardScreenState extends State<DashboardScreen>
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (_) => SafeArea(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(
-            leading: const Icon(Icons.emoji_events_outlined,
-                color: kPrimaryGreen),
-            title: const Text('Awards & Medals'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const AwardsScreen()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.group_outlined, color: kPrimaryGreen),
-            title: const Text('Build Your Team'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const BuildTeamScreen()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.share_outlined, color: kPrimaryGreen),
-            title: const Text('Share & Invite'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const ShareInviteScreen()));
-            },
-          ),
-        ]),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(
+                Icons.emoji_events_outlined,
+                color: kPrimaryGreen,
+              ),
+              title: const Text('Awards & Medals'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AwardsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.group_outlined, color: kPrimaryGreen),
+              title: const Text('Build Your Team'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const BuildTeamScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.share_outlined, color: kPrimaryGreen),
+              title: const Text('Share & Invite'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ShareInviteScreen()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -79,25 +91,30 @@ class _DashboardScreenState extends State<DashboardScreen>
         title: Image.asset(
           'assets/images/logo_round.png',
           height: 36,
-          errorBuilder: (c, e, s) => const Text('AIMIM',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 3)),
+          errorBuilder: (c, e, s) => const Text(
+            'AIMIM',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 3,
+            ),
+          ),
         ),
         centerTitle: false,
         actions: [
           IconButton(
-            icon: const Icon(Icons.emoji_events_outlined,
-                color: Colors.white),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const AwardsScreen())),
+            icon: const Icon(Icons.emoji_events_outlined, color: Colors.white),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const AwardsScreen()),
+            ),
           ),
           IconButton(
-            icon: const Icon(Icons.receipt_long_outlined,
-                color: Colors.white),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const BuildTeamScreen())),
+            icon: const Icon(Icons.receipt_long_outlined, color: Colors.white),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const BuildTeamScreen()),
+            ),
           ),
           IconButton(
             icon: const Icon(Icons.more_vert, color: Colors.white),
@@ -115,7 +132,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                   labelColor: Colors.white,
                   unselectedLabelColor: Colors.white60,
                   labelStyle: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 12),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
                   tabs: const [
                     Tab(text: 'Dashboard'),
                     Tab(text: 'Badge'),
@@ -129,11 +148,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                 child: CircleAvatar(
                   radius: 14,
                   backgroundColor: Colors.white24,
-                  child: const Text('P',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12)),
+                  child: const Text(
+                    'P',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -159,8 +181,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 class _DashboardTab extends StatelessWidget {
   final bool showBanner;
   final VoidCallback onCloseBanner;
-  const _DashboardTab(
-      {required this.showBanner, required this.onCloseBanner});
+  const _DashboardTab({required this.showBanner, required this.onCloseBanner});
 
   @override
   Widget build(BuildContext context) {
@@ -182,26 +203,36 @@ class _DashboardTab extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
-                        Text('AIMIM',
-                            style: TextStyle(
-                                color: kPrimaryGreen,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 18,
-                                letterSpacing: 2)),
-                        Text('à¤ªà¤¤à¤‚à¤— Â· KITE Â· Ù¾ØªÙ†Ú¯',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600)),
-                        Text('All India Majlis E-Ittehadul Muslimeen',
-                            style:
-                                TextStyle(color: Colors.grey, fontSize: 10)),
+                        Text(
+                          'AIMIM',
+                          style: TextStyle(
+                            color: kPrimaryGreen,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18,
+                            letterSpacing: 2,
+                          ),
+                        ),
+                        Text(
+                          'à¤ªà¤¤à¤‚à¤— Â· KITE Â· Ù¾ØªÙ†Ú¯',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          'All India Majlis E-Ittehadul Muslimeen',
+                          style: TextStyle(color: Colors.grey, fontSize: 10),
+                        ),
                       ],
                     ),
                   ),
                   GestureDetector(
                     onTap: onCloseBanner,
-                    child: const Icon(Icons.close,
-                        color: Colors.grey, size: 18),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.grey,
+                      size: 18,
+                    ),
                   ),
                 ],
               ),
@@ -220,10 +251,26 @@ class _DashboardTab extends StatelessWidget {
               mainAxisSpacing: 10,
               childAspectRatio: 1.4,
               children: const [
-                _StatCard(title: 'My Rank', value: '#1,240', icon: Icons.leaderboard_outlined),
-                _StatCard(title: 'My Points', value: '5,300 XP', icon: Icons.star_outline),
-                _StatCard(title: 'My Team', value: '399', icon: Icons.group_outlined),
-                _StatCard(title: 'New Members', value: '99', icon: Icons.person_add_outlined),
+                _StatCard(
+                  title: 'My Rank',
+                  value: '#1,240',
+                  icon: Icons.leaderboard_outlined,
+                ),
+                _StatCard(
+                  title: 'My Points',
+                  value: '5,300 XP',
+                  icon: Icons.star_outline,
+                ),
+                _StatCard(
+                  title: 'My Team',
+                  value: '399',
+                  icon: Icons.group_outlined,
+                ),
+                _StatCard(
+                  title: 'New Members',
+                  value: '99',
+                  icon: Icons.person_add_outlined,
+                ),
               ],
             ),
           ),
@@ -243,7 +290,8 @@ class _DashboardTab extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const _RankLeaderScreen()),
+                        builder: (_) => const _RankLeaderScreen(),
+                      ),
                     ),
                   ),
                 ),
@@ -256,7 +304,8 @@ class _DashboardTab extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const _DailyCheckinScreen()),
+                        builder: (_) => const _DailyCheckinScreen(),
+                      ),
                     ),
                   ),
                 ),
@@ -266,9 +315,12 @@ class _DashboardTab extends StatelessWidget {
                     icon: Icons.share_outlined,
                     label: 'Share &\nInvite',
                     color: const Color(0xFF6A1B9A),
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (_) => const ShareInviteScreen())),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ShareInviteScreen(),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -290,13 +342,18 @@ class _DashboardTab extends StatelessWidget {
               children: [
                 Row(
                   children: const [
-                    Text('Growth Chart',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14)),
+                    Text(
+                      'Growth Chart',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
                     Spacer(),
-                    Text('This Month',
-                        style:
-                            TextStyle(color: Colors.grey, fontSize: 11)),
+                    Text(
+                      'This Month',
+                      style: TextStyle(color: Colors.grey, fontSize: 11),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -327,44 +384,66 @@ class _DashboardTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text('Opportunities',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14)),
+                      Text(
+                        'Opportunities',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       SizedBox(height: 2),
-                      Text('Volunteer Initiative',
-                          style: TextStyle(
-                              color: Colors.grey, fontSize: 11)),
+                      Text(
+                        'Volunteer Initiative',
+                        style: TextStyle(color: Colors.grey, fontSize: 11),
+                      ),
                       SizedBox(height: 6),
                       Row(
                         children: [
-                          Icon(Icons.group_outlined,
-                              color: kPrimaryGreen, size: 16),
+                          Icon(
+                            Icons.group_outlined,
+                            color: kPrimaryGreen,
+                            size: 16,
+                          ),
                           SizedBox(width: 4),
-                          Text('100K',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: kPrimaryGreen)),
+                          Text(
+                            '100K',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: kPrimaryGreen,
+                            ),
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
                 ElevatedButton.icon(
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(
-                          builder: (_) => const MembershipFormScreen())),
-                  icon: const Icon(Icons.volunteer_activism,
-                      size: 16, color: Colors.white),
-                  label: const Text('Apply Now',
-                      style: TextStyle(fontSize: 12)),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const MembershipFormScreen(),
+                    ),
+                  ),
+                  icon: const Icon(
+                    Icons.volunteer_activism,
+                    size: 16,
+                    color: Colors.white,
+                  ),
+                  label: const Text(
+                    'Apply Now',
+                    style: TextStyle(fontSize: 12),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kPrimaryGreen,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                   ),
                 ),
               ],
@@ -380,8 +459,11 @@ class _StatCard extends StatelessWidget {
   final String title;
   final String value;
   final IconData icon;
-  const _StatCard(
-      {required this.title, required this.value, required this.icon});
+  const _StatCard({
+    required this.title,
+    required this.value,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -399,12 +481,17 @@ class _StatCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(value,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 18)),
-              Text(title,
-                  style: const TextStyle(
-                      color: Colors.grey, fontSize: 11)),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                title,
+                style: const TextStyle(color: Colors.grey, fontSize: 11),
+              ),
             ],
           ),
         ],
@@ -418,11 +505,12 @@ class _ActionCard extends StatelessWidget {
   final String label;
   final Color color;
   final VoidCallback onTap;
-  const _ActionCard(
-      {required this.icon,
-      required this.label,
-      required this.color,
-      required this.onTap});
+  const _ActionCard({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -438,12 +526,15 @@ class _ActionCard extends StatelessWidget {
           children: [
             Icon(icon, color: Colors.white, size: 26),
             const SizedBox(height: 6),
-            Text(label,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600)),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
       ),
@@ -461,11 +552,16 @@ class _ComingSoonTab extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.construction_outlined,
-              color: Colors.white54, size: 48),
+          const Icon(
+            Icons.construction_outlined,
+            color: Colors.white54,
+            size: 48,
+          ),
           const SizedBox(height: 12),
-          Text('$label â€” Coming Soon',
-              style: const TextStyle(color: Colors.white70, fontSize: 16)),
+          Text(
+            '$label â€” Coming Soon',
+            style: const TextStyle(color: Colors.white70, fontSize: 16),
+          ),
         ],
       ),
     );
@@ -520,8 +616,7 @@ class _LineChartPainter extends CustomPainter {
       ..color = kPrimaryGreen
       ..style = PaintingStyle.fill;
     for (int i = 0; i < points.length; i++) {
-      canvas.drawCircle(
-          Offset(i * dx, size.height * points[i]), 3, dotPaint);
+      canvas.drawCircle(Offset(i * dx, size.height * points[i]), 3, dotPaint);
     }
   }
 
@@ -539,8 +634,10 @@ class _DailyCheckinScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryGreen,
-        title: const Text('Daily Check-in',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Daily Check-in',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -561,25 +658,31 @@ class _DailyCheckinScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const Text('LEVEL 3',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20)),
+                  const Text(
+                    'LEVEL 3',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Icon(Icons.star, color: Colors.amber, size: 20),
                       SizedBox(width: 4),
-                      Text('GOLD 200',
-                          style: TextStyle(color: Colors.amber, fontSize: 14)),
+                      Text(
+                        'GOLD 200',
+                        style: TextStyle(color: Colors.amber, fontSize: 14),
+                      ),
                       SizedBox(width: 16),
                       Icon(Icons.bolt, color: Colors.yellow, size: 20),
                       SizedBox(width: 4),
-                      Text('5,300 XP',
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 14)),
+                      Text(
+                        '5,300 XP',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -588,8 +691,9 @@ class _DailyCheckinScreen extends StatelessWidget {
                     child: LinearProgressIndicator(
                       value: 0.65,
                       backgroundColor: Colors.white24,
-                      valueColor:
-                          const AlwaysStoppedAnimation<Color>(Colors.amber),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Colors.amber,
+                      ),
                       minHeight: 8,
                     ),
                   ),
@@ -599,9 +703,10 @@ class _DailyCheckinScreen extends StatelessWidget {
             const SizedBox(height: 16),
             const Align(
               alignment: Alignment.centerLeft,
-              child: Text("Today's Tasks & Rewards",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 15)),
+              child: Text(
+                "Today's Tasks & Rewards",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
             ),
             const SizedBox(height: 12),
             ...[
@@ -621,8 +726,11 @@ class _TaskRow extends StatelessWidget {
   final String label;
   final String reward;
   final bool done;
-  const _TaskRow(
-      {required this.label, required this.reward, required this.done});
+  const _TaskRow({
+    required this.label,
+    required this.reward,
+    required this.done,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -630,12 +738,9 @@ class _TaskRow extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: done
-            ? kPrimaryGreen.withAlpha(20)
-            : Colors.grey.shade100,
+        color: done ? kPrimaryGreen.withAlpha(20) : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-            color: done ? kPrimaryGreen : Colors.grey.shade300),
+        border: Border.all(color: done ? kPrimaryGreen : Colors.grey.shade300),
       ),
       child: Row(
         children: [
@@ -646,14 +751,21 @@ class _TaskRow extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: done ? Colors.grey : Colors.black87)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: done ? Colors.grey : Colors.black87,
+              ),
+            ),
           ),
-          Text(reward,
-              style: const TextStyle(
-                  color: kPrimaryGreen, fontWeight: FontWeight.bold)),
+          Text(
+            reward,
+            style: const TextStyle(
+              color: kPrimaryGreen,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
@@ -669,8 +781,12 @@ class _RankLeaderScreen extends StatefulWidget {
 
 class _RankLeaderScreenState extends State<_RankLeaderScreen> {
   static const _leaders = [
-    'Arun Shah', 'Kabir Khan', 'Nazma Khan',
-    'S Azhar', 'K R Kappor', 'Rohit Sharma',
+    'Arun Shah',
+    'Kabir Khan',
+    'Nazma Khan',
+    'S Azhar',
+    'K R Kappor',
+    'Rohit Sharma',
   ];
 
   @override
@@ -678,9 +794,10 @@ class _RankLeaderScreenState extends State<_RankLeaderScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryGreen,
-        title: const Text('Rank your Leader',
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Rank your Leader',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
@@ -709,11 +826,14 @@ class _RankLeaderScreenState extends State<_RankLeaderScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text('Drop in Box for Rank your Leader',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-            const Text('Your Opinion Matters',
-                style: TextStyle(color: Colors.grey, fontSize: 11)),
+            const Text(
+              'Drop in Box for Rank your Leader',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+            const Text(
+              'Your Opinion Matters',
+              style: TextStyle(color: Colors.grey, fontSize: 11),
+            ),
             const SizedBox(height: 12),
             GridView.count(
               shrinkWrap: true,
@@ -726,30 +846,32 @@ class _RankLeaderScreenState extends State<_RankLeaderScreen> {
                 6,
                 (i) => Container(
                   decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Colors.grey.shade400, width: 1.5),
+                    border: Border.all(color: Colors.grey.shade400, width: 1.5),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: Text('${i + 1}',
-                        style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey)),
+                    child: Text(
+                      '${i + 1}',
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            const Text('Drag your Leader for Rank',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            const Text(
+              'Drag your Leader for Rank',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
             const SizedBox(height: 12),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
@@ -761,18 +883,23 @@ class _RankLeaderScreenState extends State<_RankLeaderScreen> {
                   CircleAvatar(
                     radius: 28,
                     backgroundColor: kPrimaryGreen,
-                    child: Text(_leaders[i][0],
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20)),
+                    child: Text(
+                      _leaders[i][0],
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  Text(_leaders[i],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 11),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis),
+                  Text(
+                    _leaders[i],
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 11),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),
@@ -790,11 +917,14 @@ class _RankLeaderScreenState extends State<_RankLeaderScreen> {
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Colors.grey),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
-                    child: const Text('Reset',
-                        style: TextStyle(color: Colors.black87)),
+                    child: const Text(
+                      'Reset',
+                      style: TextStyle(color: Colors.black87),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -805,11 +935,14 @@ class _RankLeaderScreenState extends State<_RankLeaderScreen> {
                       backgroundColor: kPrimaryGreen,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
-                    child: const Text('Final Submit',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: const Text(
+                      'Final Submit',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],
@@ -820,6 +953,3 @@ class _RankLeaderScreenState extends State<_RankLeaderScreen> {
     );
   }
 }
-
-
-

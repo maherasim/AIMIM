@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constants.dart';
 import '../../widgets/alert_banner.dart';
 import 'chat_single_screen.dart';
+import 'contact_list_screen.dart';
 
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({super.key});
@@ -138,9 +139,17 @@ class _ChatsScreenState extends State<ChatsScreen>
                   ),
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.person_add_outlined),
-                    title: Text('New Direct Message'),
-                    onTap: () => Navigator.pop(context),
+                    leading: const Icon(Icons.person_add_outlined),
+                    title: const Text('New Direct Message'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ContactListScreen(),
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: Icon(Icons.group_add_outlined),
@@ -166,6 +175,13 @@ class _ChatsScreenState extends State<ChatsScreen>
           ),
           child: TextField(
             controller: _searchController,
+            readOnly: true,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ContactListScreen()),
+              );
+            },
             decoration: InputDecoration(
               fillColor: Color.fromRGBO(41, 42, 46, 0.8),
               hintText: 'Search name',
