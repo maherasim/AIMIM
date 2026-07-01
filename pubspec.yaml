@@ -41,6 +41,7 @@ dependencies:
   google_fonts: ^8.1.0
   flutter_bounceable: ^1.2.0
   flutter_screenutil: ^5.9.3
+  flutter_spinkit: ^5.2.2
 
 dev_dependencies:
   flutter_test:

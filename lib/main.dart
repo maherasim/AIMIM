@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
-import 'screens/register_screen.dart';
 import 'screens/main_screen.dart';
 import 'theme/app_theme.dart';
 
@@ -29,11 +28,10 @@ class AIMIMApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.light,
-          initialRoute: '/home',
+          initialRoute: '/',
           routes: {
             '/': (context) => const SplashScreen(),
             '/login': (context) => const LoginScreen(),
-            '/register': (context) => const RegisterScreen(),
             '/home': (context) => const MainScreen(),
           },
         );

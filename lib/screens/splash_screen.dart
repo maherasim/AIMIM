@@ -3,9 +3,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,31 +157,9 @@ class SplashScreen extends StatelessWidget {
             top: size.height * 0.66,
             left: 70.w,
             right: 70.w,
-            child: Container(
-              height: 50.h,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(13, 83, 55, 1),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 30.w,
-                    vertical: 12.h,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.r),
-                  ),
-                ),
-                child: Text(
-                  'GET STARTED',
-                  style: GoogleFonts.roboto(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+            child: const SpinKitChasingDots(
+              color: Color.fromRGBO(13, 83, 55, 1), // Using green instead of white so it's visible on the white background
+              size: 50.0,
             ),
           ),
           // 4. Bottom Green Section

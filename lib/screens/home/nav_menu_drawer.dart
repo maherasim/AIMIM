@@ -1,4 +1,4 @@
-﻿import 'package:aimim_mobile_app/theme/app_theme.dart';
+import 'package:aimim_mobile_app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +13,8 @@ class NavMenuDrawer extends StatefulWidget {
 }
 
 class _NavMenuDrawerState extends State<NavMenuDrawer> {
+  final Map<String, ExpansionTileController> _controllers = {};
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -152,6 +154,20 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                         title: 'Account Preferences',
                         icon: 'assets/svg/user-round.svg',
                         isExpanded: true,
+                        children: [
+                          buildDataColumn(
+                            title: 'Current Residency: ',
+                            value: 'Mumbai, Maharashtra',
+                          ),
+                          buildDataColumn(
+                            title: 'Voting Location: ',
+                            value: 'Noida, Uttar Pradesh',
+                          ),
+                          buildDataColumn(
+                            title: 'Phone Number: ',
+                            value: '+91 9876543210',
+                          ),
+                        ],
                       ),
 
                       // buildDrawerTile(
@@ -161,16 +177,49 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                       buildDrawerTile(
                         title: 'Support Center',
                         icon: 'assets/svg/support.svg',
+                        children: [
+                          buildDataColumn(
+                            title: 'Helpline Number: ',
+                            value: '1800-11-2233',
+                            showEdit: false,
+                          ),
+                          buildDataColumn(
+                            title: 'Email: ',
+                            value: 'support@aimim.org',
+                            showEdit: false,
+                          ),
+                        ],
                       ),
                       buildDrawerTile(
                         title: 'Advanced Setting',
                         icon: 'assets/svg/advance-settings.svg',
                         isAdvanceSetting: true,
+                        children: [
+                          buildDataColumn(
+                            title: 'Privacy Settings',
+                            value: 'Manage your data and privacy',
+                            showEdit: true,
+                            isAdvanceSetting: true,
+                          ),
+                          buildDataColumn(
+                            title: 'Security Settings',
+                            value: 'Password, 2FA, and alerts',
+                            showEdit: true,
+                            isAdvanceSetting: true,
+                          ),
+                          buildDataColumn(
+                            title: 'Notification Settings',
+                            value: 'Push, email, and SMS alerts',
+                            showEdit: true,
+                            isAdvanceSetting: true,
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
                 Container(
+                  height: 60.h,
                   margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 5.h),
                   child: Image.asset('assets/images/cat-whatsaopop.png'),
                 ),
@@ -182,17 +231,11 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                     color: Colors.white,
                   ),
                 ),
-                Spacer(),
+                SizedBox.shrink(),
+                // Spacer(),
                 Image.asset('assets/images/ooter-1.png'),
                 Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    color: Colors.white,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 5.h,
-                    ),
-                  ),
+                  child: Container(width: double.infinity, color: Colors.white),
                 ),
               ],
             ),
@@ -207,7 +250,13 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
     required String icon,
     bool isExpanded = false,
     bool isAdvanceSetting = false,
+    List<Widget>? children,
   }) {
+    final controller = _controllers.putIfAbsent(
+      title,
+      () => ExpansionTileController(),
+    );
+
     return Container(
       decoration: BoxDecoration(
         color: isAdvanceSetting ? Colors.black : Colors.transparent,
@@ -222,6 +271,16 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
       child: Material(
         type: MaterialType.transparency,
         child: ExpansionTile(
+          controller: controller,
+          onExpansionChanged: (expanded) {
+            if (expanded) {
+              for (final key in _controllers.keys) {
+                if (key != title) {
+                  _controllers[key]?.collapse();
+                }
+              }
+            }
+          },
           tilePadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
           leading: SvgPicture.asset(
             icon,
@@ -242,56 +301,56 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
           expandedAlignment: Alignment.bottomLeft,
           childrenPadding: EdgeInsets.symmetric(horizontal: 15.w),
-          children: [
-            buildDataColumn(
-              title: 'Current Residency: ',
-              value: 'Mumbai, Maharashtra',
-            ),
-            buildDataColumn(
-              title: 'Voting Location: ',
-              value: 'Noida, Uttar Pradesh',
-            ),
-          ],
+          children: children ?? [],
         ),
       ),
     );
   }
 
-  Widget buildDataColumn({required String title, required String value}) {
+  Widget buildDataColumn({
+    required String title,
+    required String value,
+    bool showEdit = true,
+    bool isAdvanceSetting = false,
+  }) {
     return Container(
       margin: EdgeInsets.only(bottom: 10.h),
       child: Column(
-        crossAxisAlignment: .start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Text(
                 title,
                 style: GoogleFonts.roboto(
-                  color: Colors.red,
+                  color: isAdvanceSetting ? Colors.white70 : Colors.red,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                margin: EdgeInsets.only(left: 2.w),
-                decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(10.r),
+              if (showEdit)
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                  margin: EdgeInsets.only(left: 2.w),
+                  decoration: BoxDecoration(
+                    color: Colors.red.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Text(
+                    'Edit',
+                    style: GoogleFonts.roboto(
+                      color: Colors.red,
+                      fontSize: 10.sp,
+                    ),
+                  ),
                 ),
-                child: Text(
-                  'Edit',
-                  style: GoogleFonts.roboto(color: Colors.red, fontSize: 10.sp),
-                ),
-              ),
             ],
           ),
           SizedBox(height: 3.h),
           Text(
             value,
             style: GoogleFonts.roboto(
-              color: AppTheme.primaryGreen,
+              color: isAdvanceSetting ? Colors.white : AppTheme.primaryGreen,
               fontSize: 12.sp,
               fontWeight: FontWeight.bold,
             ),

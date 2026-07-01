@@ -21,6 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _pinKey = GlobalKey<PinInputRowState>();
   bool _rememberMe = false;
   bool _obscurePin = true;
+  bool _isLoginMode = true;
+
+  void _toggleMode() {
+    setState(() {
+      _isLoginMode = !_isLoginMode;
+    });
+  }
 
   @override
   void dispose() {
@@ -100,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             svgTitleIcon: 'assets/svg/email.svg',
                             inputController: _idController,
-                            title: 'Login with Passcode *',
+                            title: _isLoginMode ? 'Login with Passcode *' : 'Register with Passcode *',
                           ),
                           SizedBox(height: 8.h),
                           PinInputRow(key: _pinKey),
@@ -169,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: SubmitButton(
                                   // width: 150.w,
                                   height: 45.h,
-                                  text: 'LOGIN NOW',
+                                  text: _isLoginMode ? 'LOGIN NOW' : 'REGISTER NOW',
                                   onTap: () {
                                     Navigator.pushNamed(context, '/home');
 
@@ -226,11 +233,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     SubmitButton(
-                      text: 'CREATE A NEW ACCOUNT',
+                      text: _isLoginMode ? 'CREATE A NEW ACCOUNT' : 'BACK TO LOGIN',
                       textColor: AppTheme.white,
-                      onTap: () {
-                        // Handle login with OTP action
-                      },
+                      onTap: _toggleMode,
                       bgColor: AppTheme.primarygreen,
                       borderWidth: 1.5.sp,
                       bdColor: Colors.white,
