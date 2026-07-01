@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../constants.dart';
 import '../chats/chat_single_screen.dart';
 import '../membership/membership_success_screen.dart';
@@ -196,21 +199,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: kPrimaryGreen,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Padding(
+            padding: EdgeInsets.only(left: 20.w),
+            child: SvgPicture.asset(
+              'assets/svg/arrow_back.svg',
+              color: Colors.white,
+              // width: 24,
+              // height: 24,
+            ),
+          ),
         ),
-        title: Text(
-          '@${name.toLowerCase().replaceAll(' ', '_')}',
-          style: const TextStyle(color: Colors.white, fontSize: 14),
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              '@${name.toLowerCase().replaceAll(' ', '_')}',
+              style: GoogleFonts.roboto(
+                color: Color.fromRGBO(0, 255, 83, 1),
+                fontSize: 14,
+                // fontWeight: FontWeight.w500,
+                height: 1,
+              ),
+            ),
+            SizedBox(width: 4),
+            Icon(
+              Icons.keyboard_arrow_down,
+              color: Color.fromRGBO(0, 255, 83, 1),
+              size: 16,
+            ),
+            SizedBox(width: 15.w),
+            SvgPicture.asset(
+              'assets/svg/amim-logo.svg',
+
+              // color: Colors.white,
+              // width: 24,
+              // height: 24,
+            ),
+          ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.ios_share_outlined, color: Colors.white),
-            onPressed: () => _showShare(context),
+          GestureDetector(
+            onTap: () => _showShare(context),
+            child: Padding(
+              padding: EdgeInsets.only(right: 20.w),
+              child: SvgPicture.asset(
+                'assets/svg/share-1.svg',
+                color: Colors.white,
+                // width: 24,
+                // height: 24,
+              ),
+            ),
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.white),
+            icon: Icon(Icons.more_vert, color: Colors.white, size: 30.sp),
             onPressed: () => _showMore(context),
           ),
         ],

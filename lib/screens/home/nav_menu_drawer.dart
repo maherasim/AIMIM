@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'profile_screen.dart';
 
 class NavMenuDrawer extends StatefulWidget {
   const NavMenuDrawer({super.key});
@@ -331,7 +332,7 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
     );
   }
 
-  Container buildUserinfo() {
+  Widget buildUserinfo() {
     return Container(
       decoration: BoxDecoration(
         color: Color.fromRGBO(13, 83, 55, 1),
@@ -340,62 +341,75 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
           topRight: Radius.circular(15.r),
         ),
       ),
-      child: Container(
-        margin: EdgeInsets.all(5.sp),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30.r),
-        ),
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              height: 60.h,
-              width: 60.w,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/user.jpg'),
-                  fit: BoxFit.cover,
-                ),
-                shape: BoxShape.circle,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => ProfileScreen(
+                name: 'PASHA JAMEER',
+                heroTag: 'nav_drawer_profile_pasha_jameer',
               ),
             ),
-            SizedBox(width: 5.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'PASHA JAMEER',
-                      style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14.sp,
+          );
+        },
+        child: Container(
+          margin: EdgeInsets.all(5.sp),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30.r),
+          ),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 60.h,
+                width: 60.w,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/user.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                  shape: BoxShape.circle,
+                ),
+              ),
+              SizedBox(width: 5.w),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'PASHA JAMEER',
+                        style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
+                        ),
                       ),
+                      SizedBox(width: 5.w),
+                      Icon(Icons.verified, color: Colors.blue, size: 20.sp),
+                    ],
+                  ),
+                  Text(
+                    'New User • Joined May 2025 >',
+                    style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11.sp,
                     ),
-                    SizedBox(width: 5.w),
-                    Icon(Icons.verified, color: Colors.blue, size: 20.sp),
-                  ],
-                ),
-                Text(
-                  'New User • Joined May 2025 >',
-                  style: GoogleFonts.roboto(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.sp,
                   ),
-                ),
-                Text(
-                  'Last login 26 November 2025',
-                  style: GoogleFonts.roboto(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.sp,
+                  Text(
+                    'Last login 26 November 2025',
+                    style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11.sp,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(width: 18.w),
-            Icon(Icons.arrow_forward_ios, color: Colors.black, size: 20.sp),
-          ],
+                ],
+              ),
+              SizedBox(width: 18.w),
+              Icon(Icons.arrow_forward_ios, color: Colors.black, size: 20.sp),
+            ],
+          ),
         ),
       ),
     );
